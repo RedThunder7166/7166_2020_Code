@@ -8,15 +8,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.LimeLightSubsystem;
 
 public class LimeLightDashBoard extends CommandBase {
+  private final LimeLightSubsystem limeLightSubsystem;
   /**
    * Creates a new LimeLightDashBoard.
    */
-  public LimeLightDashBoard() {
+  public LimeLightDashBoard( LimeLightSubsystem subsystem) {
+    limeLightSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.limelightsubsystem);
+    addRequirements(subsystem);
     
   }
 
@@ -28,7 +30,7 @@ public class LimeLightDashBoard extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.limelightsubsystem.limelightDashboard();
+    limeLightSubsystem.limelightDashboard();
   }
 
   // Called once the command ends or is interrupted.

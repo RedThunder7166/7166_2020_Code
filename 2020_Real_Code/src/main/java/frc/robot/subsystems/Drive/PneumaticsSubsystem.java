@@ -8,7 +8,9 @@
 package frc.robot.subsystems.Drive;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.Drive.PneumaticsDoNothing;
 
 public class PneumaticsSubsystem extends SubsystemBase {
   /**
@@ -16,20 +18,11 @@ public class PneumaticsSubsystem extends SubsystemBase {
    */
   public PneumaticsSubsystem() {
 
+
   }
 
   public Solenoid Sol = new Solenoid(0, 0);
 
-
-  public void invertSolStatus(){
-
-    if(Sol.get() == true){
-      Sol.set(false);
-    }else if(Sol.get() == false){
-      Sol.set(true);
-    }else{}
-
-  }
 
   public void highGear(){
     Sol.set(false);
@@ -37,6 +30,15 @@ public class PneumaticsSubsystem extends SubsystemBase {
 
   public void lowGear(){
     Sol.set(true);
+  }
+
+  public void doNothing(){
+    // do nothing
+  }
+
+  @Override
+  public void setDefaultCommand(Command defaultCommand) {
+    super.setDefaultCommand(new PneumaticsDoNothing(this));
   }
 
   @Override

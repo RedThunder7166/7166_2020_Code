@@ -14,9 +14,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
+import frc.robot.commands.Drive.DriveTrain;
 public class DriveSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
@@ -159,6 +160,11 @@ public void rightEncoderReset(){
 
   rightEncoder.setPosition(0);
 
+}
+
+@Override
+public void setDefaultCommand(Command defaultCommand) {
+  super.setDefaultCommand(new DriveTrain(this));
 }
 
   @Override

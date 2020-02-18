@@ -25,18 +25,23 @@ public class FlyWheelSubsystem extends SubsystemBase {
   public CANSparkMax flyWheelLeft = new CANSparkMax(Constants.FLY_WHEEL_LEFT_CAN, MotorType.kBrushless);
 
   
-
+  public void manSpinUp(double speed){
+    flyWheelLeft.set(speed);
+    flyWheelRight.set(-speed);
+  }
 
   public void setFlyWheelUP(){
     double startUp = 0.01;
-    double flyspeed = 0.0;
-    flyWheelLeft.setInverted(true);
+    double flyspeedRight = 0.0;
+    double flyspeedLeft = 0.0;
 
-    while(flyWheelLeft.get() < 1 && flyWheelRight.get() < 1){
-      flyspeed += startUp;
 
-      flyWheelLeft.set(flyspeed);
-      flyWheelRight.set(flyspeed);
+    while(flyWheelLeft.get() > -1 && flyWheelRight.get() < 1){
+      flyspeedRight += startUp;
+      flyspeedLeft -= startUp;
+
+      flyWheelLeft.set(flyspeedLeft);
+      flyWheelRight.set(flyspeedRight);
 
     } if(flyWheelLeft.get() == 1 && flyWheelRight.get() == 1 ){
       flyWheelLeft.set(1);
@@ -46,13 +51,15 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   public void setFlyWheelDOWN(){
     double spinDown = 0.01;
-    double motorSpeed = 1;
-    flyWheelRight.setInverted(true);
+    double motorSpeedRight = 1;
+    double motorSpeedLeft = -1;
+
 
     while(flyWheelLeft.get() != 0 && flyWheelRight.get() != 0){
-      motorSpeed -= spinDown;
-      flyWheelLeft.set(motorSpeed);
-      flyWheelRight.set(motorSpeed);
+      motorSpeedRight -= spinDown;
+      motorSpeedLeft += spinDown;
+      flyWheelLeft.set(motorSpeedLeft);
+      flyWheelRight.set(motorSpeedRight);
     }
 
   }

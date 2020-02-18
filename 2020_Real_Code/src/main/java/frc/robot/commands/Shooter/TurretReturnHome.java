@@ -8,15 +8,17 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class TurretReturnHome extends CommandBase {
+  private final TurretSubsystem turretSubsystem;
   /**
    * Creates a new TurretReturnHome.
    */
-  public TurretReturnHome() {
+  public TurretReturnHome(TurretSubsystem subsystem) {
+    turretSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.turretSubsystem);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +30,7 @@ public class TurretReturnHome extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.turretSubsystem.setTurretHome();
+    turretSubsystem.setTurretHome();
   }
 
   // Called once the command ends or is interrupted.

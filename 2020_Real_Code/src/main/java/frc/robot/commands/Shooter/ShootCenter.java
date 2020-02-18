@@ -5,20 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor.ConveyorYFolder;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor.ConveyorYSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
+import frc.robot.subsystems.Shooter.TurretSubsystem;
 
-public class ConveyorYIn extends CommandBase {
-  private final ConveyorYSubsystem conveyorYSubsystem;
+public class ShootCenter extends CommandBase {
+  private final TurretSubsystem turretSubsystem;
+  private final HoodSubsystem hoodSubsystem;
   /**
-   * Creates a new ConveyorY.
+   * Creates a new ShootCenter.
    */
-  public ConveyorYIn(ConveyorYSubsystem subsystem) {
-    conveyorYSubsystem = subsystem;
+  public ShootCenter(TurretSubsystem subsystem, HoodSubsystem subsystem2) {
+    turretSubsystem = subsystem;
+    hoodSubsystem = subsystem2;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(subsystem, subsystem2);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +32,8 @@ public class ConveyorYIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyorYSubsystem.setVerticalConveyorSpeed(1);
+    turretSubsystem.AdjustTurretXCenter();
+    // hoodSubsystem.TargetAimY();
   }
 
   // Called once the command ends or is interrupted.

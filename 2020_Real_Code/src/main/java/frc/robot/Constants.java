@@ -23,12 +23,12 @@ public final class Constants {
   // public static final int TEMP_LIMIT_SWITCH = 0;
   
   // Conveyor ports
-  public static final int CONVEYOR_BOTTOM_CAN = 17; // Bag / VictorSPX
+  public static final int CONVEYOR_BOTTOM_CAN = 11; // Bag / VictorSPX
 
-  public static final int CONVEYOR_FRONT_CAN = 19; // Bag / VictorSPX
+  public static final int CONVEYOR_FRONT_CAN = 12; // Bag / VictorSPX
 
   // Intake port
-  public static final int INTAKE_MOTOR_CAN = 14; // Bag / VictorSPX
+  public static final int INTAKE_MOTOR_CAN = 18; // Bag / VictorSPX
 
   // Drive Motor ports
   public static final int FRONT_LEFT_MOTOR_CAN = 2; // Neo / SparkMax
@@ -37,8 +37,8 @@ public final class Constants {
   public static final int BACK_RIGHT_MOTOR_CAN = 3; // Neo / SparkMax
 
   //Shooter ports
-  public static final int TEMP_HOOD_CAN = 16; // Neo550 / SparkMax
-  public static final int TEMP_GEAR_CAN = 15; // 775 / TalonSRX
+  public static final int TEMP_HOOD_CAN = 6; // Neo550 / SparkMax
+  public static final int TEMP_GEAR_CAN = 13; // 775 / TalonSRX
   public static final int FLY_WHEEL_RIGHT_CAN = 9; // Neo / SparkMax
   public static final int FLY_WHEEL_LEFT_CAN = 5; // Neo / SparkMax
 
@@ -46,13 +46,13 @@ public final class Constants {
   public static final int WINCH_CAN = 7; // Neo / SparkMax
 
   // Shoulder ports
-  public static final int SHOULDER_CAN = 9; // Neo / SparkMax
+  public static final int SHOULDER_CAN = 15; // Neo / SparkMax
 
   // Elbow ports
-  public static final int ELBOW_CAN = 11; // Neo / SparkMax
+  public static final int ELBOW_CAN = 14; // Neo / SparkMax
 
   // Climb Adjust ports
-  public static final int CLIMB_ADJUST_CAN = 13; // Neo550 / SparkMax
+  public static final int CLIMB_ADJUST_CAN = 10; // Neo550 / SparkMax
   
   // Controller Stuff
   public static final int DRIVE_CONTROLLER = 0;

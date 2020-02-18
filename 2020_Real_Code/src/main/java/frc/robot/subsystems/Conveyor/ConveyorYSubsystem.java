@@ -10,8 +10,10 @@ package frc.robot.subsystems.Conveyor;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.Conveyor.ConveyorYFolder.ConveyorYNothing;
 
 public class ConveyorYSubsystem extends SubsystemBase {
   /**
@@ -26,6 +28,12 @@ public class ConveyorYSubsystem extends SubsystemBase {
   public void setVerticalConveyorSpeed(double speed){
       
       topConveyor.set(ControlMode.PercentOutput, speed);
+  }
+
+  @Override
+  public void setDefaultCommand(Command defaultCommand) {
+    // TODO Auto-generated method stub
+    super.setDefaultCommand(new ConveyorYNothing(this));
   }
 
 

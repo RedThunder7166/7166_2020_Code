@@ -8,15 +8,17 @@
 package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Drive.PneumaticsSubsystem;
 
 public class PneumaticsDoNothing extends CommandBase {
+  private final PneumaticsSubsystem pneumaticsSubsystem;
   /**
    * Creates a new PneumaticsDoNothing.
    */
-  public PneumaticsDoNothing() {
+  public PneumaticsDoNothing(PneumaticsSubsystem subsystem) {
+    pneumaticsSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.pneumaticsSubsystem);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -27,6 +29,7 @@ public class PneumaticsDoNothing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    pneumaticsSubsystem.doNothing();
   }
 
   // Called once the command ends or is interrupted.

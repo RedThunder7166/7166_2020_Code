@@ -11,27 +11,30 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Drive.DriveSubsystem;
 
 public class DriveTrain extends CommandBase {
+  private final DriveSubsystem driveSubsystem;
   /**
    * Creates a new DriveTrain.
    */
-  public DriveTrain() {
+  public DriveTrain(DriveSubsystem subsystem) {
+    driveSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.driveSubsystem);
+    addRequirements(subsystem);
   }
 
-  public GenericHID joystick = Robot.robotContainer.getjoystick();
+  GenericHID joystick = Robot.robotContainer.getjoystick();
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
     double leftTrigger = joystick.getRawAxis(Constants.DRIVE_LEFT_TRIGGER);
     double rightTrigger = joystick.getRawAxis(Constants.DRIVE_RIGHT_TRIGGER);
     double rotation = joystick.getRawAxis(Constants.DRIVE_LEFT_X_AXIS);
     double speed = (rightTrigger - leftTrigger);
-    RobotContainer.driveSubsystem.RocketLeagueDrive(speed, rotation);
+    driveSubsystem.RocketLeagueDrive(speed, rotation);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

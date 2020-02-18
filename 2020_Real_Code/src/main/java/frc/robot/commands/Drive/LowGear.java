@@ -8,15 +8,17 @@
 package frc.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Drive.PneumaticsSubsystem;
 
 public class LowGear extends CommandBase {
+  private final PneumaticsSubsystem pneumaticsSubsystem;
   /**
    * Creates a new LowGear.
    */
-  public LowGear() {
+  public LowGear(PneumaticsSubsystem subsystem) {
+    pneumaticsSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.pneumaticsSubsystem);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +29,7 @@ public class LowGear extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.pneumaticsSubsystem.lowGear();
+    pneumaticsSubsystem.lowGear();
   }
 
   // Called once the command ends or is interrupted.

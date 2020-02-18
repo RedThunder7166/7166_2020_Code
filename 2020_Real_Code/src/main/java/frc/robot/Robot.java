@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+
   }
 
   /**
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = robotContainer.getAutonomousCommand();
+    // m_autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -78,6 +79,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    // RobotContainer.flyWheelSubsystem.setFlyWheelUP();
+
   }
 
   @Override
@@ -96,6 +99,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+
+
   }
 
   @Override
