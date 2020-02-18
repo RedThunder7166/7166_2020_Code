@@ -39,10 +39,6 @@ public class DriveSubsystem extends SubsystemBase {
   public DifferentialDrive differentialRocketLeagueDrive = new DifferentialDrive(leftGroup, rightGroup);
 
 
-  protected void init(){
-      // Don't use. Might break the code.
-  }
-
   // negative speed = right forwards, left backwards
   public void setLeft(double speed){
     leftGroup.set(speed);
@@ -50,6 +46,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void setRight(double speed){
     rightGroup.set(speed);
   }
+
 
   public void RocketLeagueDrive(double moving, double turning) {
     double turn = 0.0;

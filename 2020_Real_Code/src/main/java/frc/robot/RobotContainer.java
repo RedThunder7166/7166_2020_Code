@@ -58,19 +58,19 @@ public class RobotContainer {
   private final ConveyorYSubsystem conveyorYSubsystem = new ConveyorYSubsystem();
   private final ConveyorXSubsystem conveyorXSubsystem = new ConveyorXSubsystem();
 
-  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
+  // private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  // private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
-  private final FlyWheelSubsystem flyWheelSubsystem = new FlyWheelSubsystem();
+  // private final FlyWheelSubsystem flyWheelSubsystem = new FlyWheelSubsystem();
   private final HoodSubsystem hoodSubsystem = new HoodSubsystem();
   private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 
   // private final AutonomousSubsystem autonomousSubsystem = new AutonomousSubsystem();
 
-  private final LimeLightSubsystem limelightsubsystem = new LimeLightSubsystem();
+  // private final LimeLightSubsystem limelightsubsystem = new LimeLightSubsystem();
 
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   GenericHID joystick = new XboxController(Constants.DRIVE_CONTROLLER);
 

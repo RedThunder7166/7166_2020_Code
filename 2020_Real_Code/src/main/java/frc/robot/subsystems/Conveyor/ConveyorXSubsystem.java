@@ -31,7 +31,6 @@ public class ConveyorXSubsystem extends SubsystemBase {
 
   @Override
   public void setDefaultCommand(Command defaultCommand) {
-    // TODO Auto-generated method stub
     super.setDefaultCommand(new ConveyorXNothing(this));
   }
 
