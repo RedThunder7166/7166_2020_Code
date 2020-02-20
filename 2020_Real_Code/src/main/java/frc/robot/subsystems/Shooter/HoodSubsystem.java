@@ -9,6 +9,7 @@ package frc.robot.subsystems.Shooter;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -29,14 +30,29 @@ public class HoodSubsystem extends SubsystemBase {
   public CANEncoder hoodEncoder = new CANEncoder(hoodAdjustMotor);
   public DigitalInput limitSwitch = new DigitalInput(0);
 
+  public Boolean getLimitSwitchValue(){
+    return limitSwitch.get();
+  }
+
   public void setHoodSpeed(double speed){
     hoodAdjustMotor.set(speed);
+
   }
+
   public void ShowData(){
+
     SmartDashboard.putNumber("Hood encoder Value", hoodEncoder.getPosition());
-    if(limitSwitch.get() == true){
+    if(limitSwitch.get() == false){
       hoodEncoder.setPosition(0);
     }
+  }
+
+  public void setBrake(){
+    hoodAdjustMotor.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setCoast(){
+    hoodAdjustMotor.setIdleMode(IdleMode.kCoast);
   }
 
   // public void TargetAimY(){

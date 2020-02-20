@@ -10,10 +10,8 @@ package frc.robot.subsystems.Conveyor;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.Conveyor.ConveyorXFolder.ConveyorXNothing;
 
 public class ConveyorXSubsystem extends SubsystemBase {
   /**
@@ -29,10 +27,7 @@ public class ConveyorXSubsystem extends SubsystemBase {
     BottomConveyor.set(ControlMode.PercentOutput, speed);
   }
 
-  @Override
-  public void setDefaultCommand(Command defaultCommand) {
-    super.setDefaultCommand(new ConveyorXNothing(this));
-  }
+
 
   @Override
   public void periodic() {

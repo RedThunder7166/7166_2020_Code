@@ -7,39 +7,42 @@
 
 package frc.robot.commands.Drive;
 
-import edu.wpi.first.wpilibj.GenericHID;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
 public class DriveTrain extends CommandBase {
   private final DriveSubsystem driveSubsystem;
+  private final DoubleSupplier movingForward;
+  private final DoubleSupplier movingBackward;
+  private final DoubleSupplier turning;
   /**
    * Creates a new DriveTrain.
    */
-  public DriveTrain(DriveSubsystem subsystem) {
+  // 
+  public DriveTrain(DriveSubsystem subsystem, DoubleSupplier forward, DoubleSupplier Backward, DoubleSupplier rotation) {
     driveSubsystem = subsystem;
+    movingForward = forward;
+    movingBackward = Backward;
+    turning = rotation;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
-  GenericHID joystick = Robot.robotContainer.getjoystick();
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-    double leftTrigger = joystick.getRawAxis(Constants.DRIVE_LEFT_TRIGGER);
-    double rightTrigger = joystick.getRawAxis(Constants.DRIVE_RIGHT_TRIGGER);
-    double rotation = joystick.getRawAxis(Constants.DRIVE_LEFT_X_AXIS);
-    double speed = (rightTrigger - leftTrigger);
-    driveSubsystem.RocketLeagueDrive(speed, rotation);
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    double speed = movingForward.getAsDouble() - movingBackward.getAsDouble();
+    driveSubsystem.RocketLeagueDrive(speed, turning.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

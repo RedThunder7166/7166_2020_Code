@@ -7,25 +7,26 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.GenericHID;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
 
 public class Intake extends CommandBase {
-  private final FlyWheelSubsystem flyWheelSubsystem;
+  private final IntakeSubsystem intakeSubsystem;
+  private final DoubleSupplier moveMotor;
   /**
    * Creates a new Intake.
    */
-  public Intake(FlyWheelSubsystem subsystem) {
-    flyWheelSubsystem = subsystem;
+  public Intake(IntakeSubsystem subsystem, DoubleSupplier output) {
+    intakeSubsystem = subsystem;
+    moveMotor = output;
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(RobotContainer.intakeSubsystem);
     addRequirements(subsystem);
   }
 
-  GenericHID opjoystick = Robot.robotContainer.getopjoystick();
 
   // Called when the command is initially scheduled.
   @Override
@@ -35,8 +36,7 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double speed = opjoystick.getRawAxis(Constants.OPERATOR_Y_AXIS);
-    flyWheelSubsystem.manSpinUp(speed);
+    intakeSubsystem.setIntakeSpeed(moveMotor.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

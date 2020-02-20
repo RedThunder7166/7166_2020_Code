@@ -29,7 +29,7 @@ public class ConveyorYIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyorYSubsystem.setVerticalConveyorSpeed(1);
+    conveyorYSubsystem.setVerticalConveyorSpeed(0.55);
   }
 
   // Called once the command ends or is interrupted.

@@ -8,6 +8,7 @@
 package frc.robot.subsystems.Shooter;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -36,9 +37,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
     double flyspeedLeft = 0.0;
 
 
-    while(flyWheelLeft.get() > -1 && flyWheelRight.get() < 1){
-      flyspeedRight += startUp;
-      flyspeedLeft -= startUp;
+    while(flyWheelRight.get() > -1 && flyWheelLeft.get() < 1){
+      flyspeedRight -= startUp;
+      flyspeedLeft += startUp;
 
       flyWheelLeft.set(flyspeedLeft);
       flyWheelRight.set(flyspeedRight);
@@ -46,7 +47,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
     } if(flyWheelLeft.get() == 1 && flyWheelRight.get() == 1 ){
       flyWheelLeft.set(1);
       flyWheelRight.set(1);
-    } else{}
+    } else{
+
+    }
   }
 
   public void setFlyWheelDOWN(){
@@ -62,6 +65,12 @@ public class FlyWheelSubsystem extends SubsystemBase {
       flyWheelRight.set(motorSpeedRight);
     }
 
+  }
+  public void setFlyWheelOff(){
+    flyWheelLeft.setIdleMode(IdleMode.kCoast);
+    flyWheelRight.setIdleMode(IdleMode.kCoast);
+    flyWheelLeft.set(0);
+    flyWheelRight.set(0);
   }
 
   @Override

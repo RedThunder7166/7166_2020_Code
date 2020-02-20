@@ -5,19 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Conveyor.ConveyorXFolder;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor.ConveyorXSubsystem;
+import frc.robot.subsystems.Shooter.HoodSubsystem;
 
-public class ConveyorXIn extends CommandBase {
-  private final ConveyorXSubsystem conveyorXSubsystem;
+public class HoodStop extends CommandBase {
+  private final HoodSubsystem hoodSubsystem;
   /**
-   * Creates a new ConveyorXIn.
+   * Creates a new HoodStop.
    */
-  public ConveyorXIn(ConveyorXSubsystem subsystem) {
-    conveyorXSubsystem = subsystem;
+  public HoodStop(HoodSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    hoodSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
@@ -29,7 +29,9 @@ public class ConveyorXIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyorXSubsystem.setHorizontalConveyorSpeed(-0.55);
+    hoodSubsystem.setBrake();
+    hoodSubsystem.ShowData();
+    hoodSubsystem.setHoodSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.
