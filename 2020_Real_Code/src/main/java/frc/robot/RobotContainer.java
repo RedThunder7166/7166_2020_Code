@@ -33,17 +33,14 @@ import frc.robot.commands.Shooter.ShootLeft;
 import frc.robot.commands.Shooter.ShootRight;
 import frc.robot.commands.Shooter.TurretReturnHome;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LimeLightSubsystem;
 // import frc.robot.subsystems.Climb.ArmSubsystem;
 // import frc.robot.subsystems.Climb.ClimbAdjustSubsystem;
 // import frc.robot.subsystems.Climb.WinchSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorXSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorYSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
-import frc.robot.subsystems.Drive.GyroSubsystem;
 import frc.robot.subsystems.Drive.PneumaticsSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
-import frc.robot.subsystems.Shooter.HoodSubsystem;
 import frc.robot.subsystems.Shooter.TurretSubsystem;
 // import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -67,16 +64,13 @@ public class RobotContainer {
   private final ConveyorXSubsystem conveyorXSubsystem = new ConveyorXSubsystem();
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private final GyroSubsystem gyroSubsystem = new GyroSubsystem();
   private final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
   private final FlyWheelSubsystem flyWheelSubsystem = new FlyWheelSubsystem();
-  private final HoodSubsystem hoodSubsystem = new HoodSubsystem();
   private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 
   // private final AutonomousSubsystem 
 
-  private final LimeLightSubsystem limelightsubsystem = new LimeLightSubsystem();
 
   private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
@@ -139,10 +133,11 @@ public class RobotContainer {
     conveyorXSubsystem.setDefaultCommand(new ConveyorXNothing(conveyorXSubsystem));
     conveyorYSubsystem.setDefaultCommand(new ConveyorYNothing(conveyorYSubsystem));
     flyWheelSubsystem.setDefaultCommand(new FlyWheelOff(flyWheelSubsystem));
+    pneumaticsSubsystem.setDefaultCommand(new PneumaticsDoNothing(pneumaticsSubsystem));
     intakeSubsystem.setDefaultCommand(new Intake(intakeSubsystem, 
                                       () -> opjoystick.getRawAxis(Constants.OPERATOR_Y_AXIS)));
-    hoodSubsystem.setDefaultCommand(new HoodStop(hoodSubsystem));
-    limelightsubsystem.setDefaultCommand(new LimeLightDashBoard(limelightsubsystem));
+    // turretSubsystem.setDefaultCommand(new HoodStop(turretSubsystem));
+    turretSubsystem.setDefaultCommand(new LimeLightDashBoard(turretSubsystem));
 
   }
 
@@ -157,12 +152,12 @@ public class RobotContainer {
     A_Button.whenPressed(new HighGear(pneumaticsSubsystem));
     B_Button.whenPressed(new LowGear(pneumaticsSubsystem));
     X_Button.toggleWhenPressed(new FlyWheelOn(flyWheelSubsystem));
-    LB_Button.whileHeld(new HoodUp(hoodSubsystem));
-    RB_Button.whileHeld(new HoodDown(hoodSubsystem));
+    LB_Button.whileHeld(new HoodUp(turretSubsystem));
+    RB_Button.whileHeld(new HoodDown(turretSubsystem));
     Trigger.whenPressed(new TurretReturnHome(turretSubsystem));
-    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, hoodSubsystem));
-    Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, hoodSubsystem));
-    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, hoodSubsystem));
+    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem));
+    Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem));
+    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem));
     Left_Top_Right_Button.whileHeld(new ConveyorYOut(conveyorYSubsystem));
     Left_Bottom_Right_Button.whileHeld(new ConveyorYIn(conveyorYSubsystem));
     Left_Top_Middle_Button.whileHeld(new ConveyorXOut(conveyorXSubsystem));

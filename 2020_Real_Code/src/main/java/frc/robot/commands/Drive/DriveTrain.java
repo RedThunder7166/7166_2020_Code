@@ -9,6 +9,7 @@ package frc.robot.commands.Drive;
 
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
@@ -40,7 +41,8 @@ public class DriveTrain extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    SmartDashboard.putNumber("Right Trigger", movingForward.getAsDouble());
+    SmartDashboard.putNumber("Left Trigger", movingBackward.getAsDouble());
     double speed = movingForward.getAsDouble() - movingBackward.getAsDouble();
     driveSubsystem.RocketLeagueDrive(speed, turning.getAsDouble());
   }

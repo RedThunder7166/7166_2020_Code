@@ -8,14 +8,14 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter.HoodSubsystem;
+import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class HoodDown extends CommandBase {
-  private final HoodSubsystem hoodSubsystem;
+  private final TurretSubsystem hoodSubsystem;
   /**
    * Creates a new HoodDown.
    */
-  public HoodDown(HoodSubsystem subsystem) {
+  public HoodDown(TurretSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     hoodSubsystem = subsystem;
     addRequirements(subsystem);

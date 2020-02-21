@@ -8,15 +8,15 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LimeLightSubsystem;
+import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class LimeLightDashBoard extends CommandBase {
-  private final LimeLightSubsystem limeLightSubsystem;
+  private final TurretSubsystem turretSubsystem;
   /**
    * Creates a new LimeLightDashBoard.
    */
-  public LimeLightDashBoard( LimeLightSubsystem subsystem) {
-    limeLightSubsystem = subsystem;
+  public LimeLightDashBoard( TurretSubsystem subsystem) {
+    turretSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     
@@ -30,7 +30,7 @@ public class LimeLightDashBoard extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limeLightSubsystem.limelightDashboard();
+    turretSubsystem.limelightDashboard();
   }
 
   // Called once the command ends or is interrupted.

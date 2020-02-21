@@ -14,10 +14,10 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-// import frc.robot.commands.Drive.DriveTrain;
 public class DriveSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
@@ -38,6 +38,8 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DifferentialDrive differentialRocketLeagueDrive = new DifferentialDrive(leftGroup, rightGroup);
 
+  public ADXRS450_Gyro drive_Gyro = new ADXRS450_Gyro(Port.kOnboardCS0);
+
 
   // negative speed = right forwards, left backwards
   public void setLeft(double speed){
@@ -47,6 +49,20 @@ public class DriveSubsystem extends SubsystemBase {
     rightGroup.set(speed);
   }
 
+    // public double Drive_setpoint = 0.0;
+    public double Turning_constant = 0.07;
+    // public double relativeAngle = 0.0;
+    // public double Turningvalue = 0.0;
+  
+    public double getTurningValue(double Drive_setpoint){
+      double Turningvalue = (Drive_setpoint - drive_Gyro.getAngle() *Turning_constant);
+      return Turningvalue;
+    }
+  
+    public double setRelavitveAngle(double angle){
+      double relativeAngle = drive_Gyro.getAngle() + angle;
+      return relativeAngle;
+    }
 
   public void RocketLeagueDrive(double moving, double turning) {
     double turn = 0.0;
@@ -55,7 +71,7 @@ public class DriveSubsystem extends SubsystemBase {
     double rotateSpeed = 0.60;
     double swivel = .80;
 
-     if(moving != 0){
+     if(moving >= 0.10 || moving <= 0.10){
        speed = driveSpeed * moving;
        if(Math.abs(turning) > .10){
         turn = rotateSpeed * turning;

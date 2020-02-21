@@ -7,9 +7,12 @@
 
 package frc.robot.subsystems.Shooter;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+// import com.revrobotics.CANSparkMax;
+// import com.revrobotics.CANSparkMax.IdleMode;
+// import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,55 +25,63 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   }
 
-  public CANSparkMax flyWheelRight = new CANSparkMax(Constants.FLY_WHEEL_RIGHT_CAN, MotorType.kBrushless);
-  public CANSparkMax flyWheelLeft = new CANSparkMax(Constants.FLY_WHEEL_LEFT_CAN, MotorType.kBrushless);
+  // public CANSparkMax flyWheelRight = new CANSparkMax(Constants.FLY_WHEEL_RIGHT_CAN, MotorType.kBrushless);
+  public TalonFX flyWheelRight = new TalonFX(Constants.FLY_WHEEL_RIGHT_CAN);
+  public TalonFX flyWheelLeft = new TalonFX(Constants.FLY_WHEEL_LEFT_CAN);
+  // public CANSparkMax flyWheelLeft = new CANSparkMax(Constants.FLY_WHEEL_LEFT_CAN, MotorType.kBrushless);
 
   
   public void manSpinUp(double speed){
-    flyWheelLeft.set(speed);
-    flyWheelRight.set(-speed);
+    flyWheelLeft.set(ControlMode.PercentOutput, speed);
+    flyWheelRight.set(ControlMode.PercentOutput, speed);
   }
 
   public void setFlyWheelUP(){
-    double startUp = 0.01;
-    double flyspeedRight = 0.0;
-    double flyspeedLeft = 0.0;
+    // double startUp = 0.01;
+    // double flyspeedRight = 0.0;
+    // double flyspeedLeft = 0.0;
 
+    // flyWheelLeft.configClosedloopRamp(secondsFromNeutralToFull)
+    
+    flyWheelLeft.set(ControlMode.PercentOutput, 0.60);
+    flyWheelRight.set(ControlMode.PercentOutput, -0.60);
 
-    while(flyWheelRight.get() > -1 && flyWheelLeft.get() < 1){
-      flyspeedRight -= startUp;
-      flyspeedLeft += startUp;
+    // while(){
+    //   flyspeedRight -= startUp;
+    //   flyspeedLeft += startUp;
 
-      flyWheelLeft.set(flyspeedLeft);
-      flyWheelRight.set(flyspeedRight);
+    //   flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
+    //   flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
 
-    } if(flyWheelLeft.get() == 1 && flyWheelRight.get() == 1 ){
-      flyWheelLeft.set(1);
-      flyWheelRight.set(1);
-    } else{
+    // } if(){
+    //   // flyspeedLeft = 100;
+    //   // flyspeedRight = -100;
+    //   flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
+    //   flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
+    // } else{
 
-    }
+    // }
   }
 
-  public void setFlyWheelDOWN(){
-    double spinDown = 0.01;
-    double motorSpeedRight = 1;
-    double motorSpeedLeft = -1;
+  // public void setFlyWheelDOWN(){
+  //   double spinDown = 0.01;
+  //   double motorSpeedRight = 1;
+  //   double motorSpeedLeft = -1;
 
 
-    while(flyWheelLeft.get() != 0 && flyWheelRight.get() != 0){
-      motorSpeedRight -= spinDown;
-      motorSpeedLeft += spinDown;
-      flyWheelLeft.set(motorSpeedLeft);
-      flyWheelRight.set(motorSpeedRight);
-    }
+  //   while(flyWheelLeft.get() != 0 && flyWheelRight.get() != 0){
+  //     motorSpeedRight -= spinDown;
+  //     motorSpeedLeft += spinDown;
+  //     flyWheelLeft.set(ControlMode.PercentOutput, motorSpeedLeft);
+  //     flyWheelRight.set(ControlMode.PercentOutput, motorSpeedRight);
+  //   }
 
-  }
+  // }
   public void setFlyWheelOff(){
-    flyWheelLeft.setIdleMode(IdleMode.kCoast);
-    flyWheelRight.setIdleMode(IdleMode.kCoast);
-    flyWheelLeft.set(0);
-    flyWheelRight.set(0);
+    flyWheelLeft.setNeutralMode(NeutralMode.Coast);
+    flyWheelRight.setNeutralMode(NeutralMode.Coast);
+    flyWheelLeft.set(ControlMode.PercentOutput, 0);
+    flyWheelRight.set(ControlMode.PercentOutput, 0);
   }
 
   @Override

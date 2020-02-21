@@ -8,20 +8,17 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter.HoodSubsystem;
 import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class ShootRight extends CommandBase {
   private final TurretSubsystem turretSubsystem;
-  private final HoodSubsystem hoodSubsystem;
   /**
    * Creates a new ShootRight.
    */
-  public ShootRight(TurretSubsystem subsystem, HoodSubsystem subsystem2) {
+  public ShootRight(TurretSubsystem subsystem) {
     turretSubsystem = subsystem;
-    hoodSubsystem = subsystem2;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem, subsystem2);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -33,7 +30,7 @@ public class ShootRight extends CommandBase {
   @Override
   public void execute() {
     turretSubsystem.AdjustTurretXRight();
-    // hoodSubsystem.TargetAimY();
+    // turretSubsystem.TargetAimY();
   }
 
   // Called once the command ends or is interrupted.

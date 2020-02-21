@@ -9,12 +9,18 @@ package frc.robot.subsystems.Shooter;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,22 +36,49 @@ public class TurretSubsystem extends SubsystemBase {
 
   }
 
-  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
 
   public TalonSRX turret = new TalonSRX(Constants.TEMP_GEAR_CAN);
   public AnalogInput RS7_Encoder = new AnalogInput(Constants.TURRET_ENCODER);
   public AnalogEncoder turret_encoder = new AnalogEncoder(RS7_Encoder);
+  public CANSparkMax hoodAdjustMotor = new CANSparkMax(Constants.TEMP_HOOD_CAN, MotorType.kBrushless);
+  public CANEncoder hoodEncoder = new CANEncoder(hoodAdjustMotor);
+  public DigitalInput limitSwitch = new DigitalInput(0);
+  public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+  
+  NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+
+  public void limelightDashboard(){
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
+  
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
+    double area = ta.getDouble(0.0);
+  
+    SmartDashboard.putNumber("LimelightX", x);
+    SmartDashboard.putNumber("LimelightY", y);
+    SmartDashboard.putNumber("LimelightArea", area);
+  }
 
   public double getTX(){
     NetworkTableEntry tx = table.getEntry("tx");
     return tx.getDouble(0.0);
   }
-
+  public double getTY(){
+    NetworkTableEntry ty = table.getEntry("ty");
+    return ty.getDouble(0.0);
+  }
+  public double getTA(){
+    NetworkTableEntry ta = table.getEntry("ta");
+    return ta.getDouble(0.0);
+  }
   public boolean getTV(){
     NetworkTableEntry tv = table.getEntry("tv");
     return(tv.getBoolean(false));
   }
+
 
   public double getTurretEncoder(){
     return turret_encoder.get();
@@ -141,6 +174,59 @@ public class TurretSubsystem extends SubsystemBase {
     turret_Controller.close();
 
   }
+
+  
+
+  public Boolean getLimitSwitchValue(){
+    return limitSwitch.get();
+  }
+
+  public void setHoodSpeed(double speed){
+    hoodAdjustMotor.set(speed);
+
+  }
+
+  public void ShowData(){
+    SmartDashboard.putNumber("# 14", pdp.getCurrent(14));
+    SmartDashboard.putNumber("# 1", pdp.getCurrent(1));
+
+    hoodEncoder.setPositionConversionFactor(100);
+    SmartDashboard.putNumber("Hood encoder Value", hoodEncoder.getPosition());
+    // if(limitSwitch.get() == false){
+      // hoodEncoder.setPosition(0);
+    // }
+  }
+
+  public void setBrake(){
+    hoodAdjustMotor.setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setCoast(){
+    hoodAdjustMotor.setIdleMode(IdleMode.kCoast);
+  }
+
+  // public void TargetAimY(){
+  //   double ty = RobotContainer.limelightsubsystem.getTY();
+  //   double Kp = 0.01f;
+  //   double min_Command = 0.0775f;
+
+  //   if(RobotContainer.limelightsubsystem.getTV()){
+  //     double heading_error = -ty;
+  //     double adjustY = 0.0f;
+
+  //     if(ty > 1.0){
+  //       // backwards
+  //       adjustY = Kp *heading_error - min_Command;
+
+  //     }else if(ty < 1.0){
+  //       // forwards
+  //       adjustY = -(Kp *heading_error + min_Command);
+
+  //     }    
+  //     System.out.println("Steering:" + adjustY);
+  //     setHoodSpeed(adjustY);
+  //   }
+  // }
 
   @Override
   public void periodic() {
