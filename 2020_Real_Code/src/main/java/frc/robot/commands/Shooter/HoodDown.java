@@ -35,7 +35,7 @@ public class HoodDown extends CommandBase {
       hoodSubsystem.setHoodSpeed(0.0);
     }
     if(hoodSubsystem.getLimitSwitchValue() == true){
-      hoodSubsystem.setHoodSpeed(-0.20);
+      hoodSubsystem.setHoodSpeed(-0.10);
     }
 
   }

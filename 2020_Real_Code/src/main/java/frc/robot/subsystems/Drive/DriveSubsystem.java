@@ -81,8 +81,8 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
      differentialRocketLeagueDrive.arcadeDrive(speed, turn);
-     System.out.println("Turn" + turn);
-     System.out.println("Speed = " + speed);
+    //  System.out.println("Turn" + turn);
+    //  System.out.println("Speed = " + speed);
   }
 
   public void setBrakeMode(){

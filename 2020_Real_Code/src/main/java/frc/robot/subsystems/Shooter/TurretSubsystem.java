@@ -45,7 +45,7 @@ public class TurretSubsystem extends SubsystemBase {
   public CANEncoder hoodEncoder = new CANEncoder(hoodAdjustMotor);
   public DigitalInput limitSwitch = new DigitalInput(0);
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
-  
+
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public void limelightDashboard(){
@@ -56,7 +56,7 @@ public class TurretSubsystem extends SubsystemBase {
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
-  
+
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
@@ -74,11 +74,14 @@ public class TurretSubsystem extends SubsystemBase {
     NetworkTableEntry ta = table.getEntry("ta");
     return ta.getDouble(0.0);
   }
-  public boolean getTV(){
+  public double getTV(){
     NetworkTableEntry tv = table.getEntry("tv");
-    return(tv.getBoolean(false));
+    return(tv.getDouble(0.0));
   }
 
+  public void test(){
+
+  }
 
   public double getTurretEncoder(){
     return turret_encoder.get();
@@ -97,20 +100,21 @@ public class TurretSubsystem extends SubsystemBase {
     double min_Command = 0.0775f;
 
     
-    if(getTV() == true){
+    if(getTV() == 1){
       double heading_error = -tx;
       double Turret_adjust = 0.0f;
 
-      if(tx > 0.0){
+      if(tx > 0.20){
         Turret_adjust = Kp *heading_error - min_Command;
 
-      }else if(tx < 0.0){
+      }else if(tx < -0.20){
         Turret_adjust = Kp *heading_error + min_Command;
 
       }    
       System.out.println("Steering:" + Turret_adjust);
       setTurretSpeed(-Turret_adjust);
     }
+    System.out.println("test");
   }
 
   public void AdjustTurretXRight(){
@@ -119,7 +123,7 @@ public class TurretSubsystem extends SubsystemBase {
     double min_Command = 0.0775f;
 
     
-    if(getTV() == true){
+    if(getTV() == 1){
       double heading_error = -tx;
       double Turret_adjust = 0.0f;
 
@@ -141,7 +145,7 @@ public class TurretSubsystem extends SubsystemBase {
     double min_Command = 0.0775f;
 
     
-    if(getTV() == true){
+    if(getTV() == 1){
       double heading_error = -tx;
       double Turret_adjust = 0.0f;
 
@@ -192,9 +196,9 @@ public class TurretSubsystem extends SubsystemBase {
 
     hoodEncoder.setPositionConversionFactor(100);
     SmartDashboard.putNumber("Hood encoder Value", hoodEncoder.getPosition());
-    // if(limitSwitch.get() == false){
-      // hoodEncoder.setPosition(0);
-    // }
+    if(limitSwitch.get() == false){
+      hoodEncoder.setPosition(0);
+    }
   }
 
   public void setBrake(){
@@ -205,28 +209,22 @@ public class TurretSubsystem extends SubsystemBase {
     hoodAdjustMotor.setIdleMode(IdleMode.kCoast);
   }
 
-  // public void TargetAimY(){
-  //   double ty = RobotContainer.limelightsubsystem.getTY();
-  //   double Kp = 0.01f;
-  //   double min_Command = 0.0775f;
+  public void TargetAimY(){
 
-  //   if(RobotContainer.limelightsubsystem.getTV()){
-  //     double heading_error = -ty;
-  //     double adjustY = 0.0f;
 
-  //     if(ty > 1.0){
-  //       // backwards
-  //       adjustY = Kp *heading_error - min_Command;
+    if(getTV() == 1){
 
-  //     }else if(ty < 1.0){
-  //       // forwards
-  //       adjustY = -(Kp *heading_error + min_Command);
+      if(hoodEncoder.getPosition() > ((((-27 * getTA()) + 488)) + 20)){
+        hoodAdjustMotor.set(-0.075);
+      }else if(hoodEncoder.getPosition() < ((((-27 * getTA()) + 488)) - 20)){
+        hoodAdjustMotor.set(0.075);
+      }else{
+        setBrake();
+      }
 
-  //     }    
-  //     System.out.println("Steering:" + adjustY);
-  //     setHoodSpeed(adjustY);
-  //   }
-  // }
+  
+    }
+  }
 
   @Override
   public void periodic() {

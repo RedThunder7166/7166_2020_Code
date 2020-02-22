@@ -11,13 +11,13 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class HoodStop extends CommandBase {
-  private final TurretSubsystem hoodSubsystem;
+  private final TurretSubsystem turretSubsystem;
   /**
    * Creates a new HoodStop.
    */
   public HoodStop(TurretSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    hoodSubsystem = subsystem;
+    turretSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
@@ -29,9 +29,10 @@ public class HoodStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hoodSubsystem.setBrake();
-    hoodSubsystem.ShowData();
-    hoodSubsystem.setHoodSpeed(0.0);
+    turretSubsystem.limelightDashboard();
+    turretSubsystem.setBrake();
+    turretSubsystem.ShowData();
+    turretSubsystem.setHoodSpeed(0.0);
   }
 
   // Called once the command ends or is interrupted.

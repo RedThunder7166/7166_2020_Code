@@ -31,7 +31,7 @@ public class HoodUp extends CommandBase {
   public void execute() {
     hoodSubsystem.setBrake();
     hoodSubsystem.ShowData();
-    hoodSubsystem.setHoodSpeed(0.20);
+    hoodSubsystem.setHoodSpeed(0.10);
   }
 
   // Called once the command ends or is interrupted.

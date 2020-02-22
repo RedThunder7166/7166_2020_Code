@@ -30,7 +30,7 @@ public class ShootCenter extends CommandBase {
   @Override
   public void execute() {
     turretSubsystem.AdjustTurretXCenter();
-    // turretSubsystem.TargetAimY();
+    turretSubsystem.TargetAimY();
   }
 
   // Called once the command ends or is interrupted.

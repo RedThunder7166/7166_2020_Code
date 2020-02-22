@@ -30,7 +30,7 @@ public class ShootLeft extends CommandBase {
   @Override
   public void execute() {
     turretSubsystem.AdjustTurretXLeft();
-    // turretSubsystem.TargetAimY();
+    turretSubsystem.TargetAimY();
   }
 
   // Called once the command ends or is interrupted.
