@@ -215,10 +215,11 @@ public class TurretSubsystem extends SubsystemBase {
     if(getTV() == 1){
 
       if(hoodEncoder.getPosition() > ((((-27 * getTA()) + 488)) + 20)){
-        hoodAdjustMotor.set(-0.075);
+        hoodAdjustMotor.set(-0.05);
       }else if(hoodEncoder.getPosition() < ((((-27 * getTA()) + 488)) - 20)){
-        hoodAdjustMotor.set(0.075);
+        hoodAdjustMotor.set(0.05);
       }else{
+        hoodAdjustMotor.set(0);
         setBrake();
       }
 
