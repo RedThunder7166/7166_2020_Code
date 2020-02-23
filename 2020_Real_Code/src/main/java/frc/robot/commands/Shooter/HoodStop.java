@@ -29,6 +29,7 @@ public class HoodStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    turretSubsystem.setTurretSpeed(0.0);
     turretSubsystem.limelightDashboard();
     turretSubsystem.setBrake();
     turretSubsystem.ShowData();

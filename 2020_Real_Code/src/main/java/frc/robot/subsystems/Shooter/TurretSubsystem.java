@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -167,25 +166,21 @@ public class TurretSubsystem extends SubsystemBase {
     }
   }
 
+  // tx is - when to the right of the target.
+  // tx is + when to the left of the target.
+
   public void setTurretHome(){
-  // output = (Kp * error) + (Ki * change in error) + (Kd * derivative of error)
-    double Kp = 0.0;
-    double Ki = 0.0;
-    double Kd = 0.0;
-    SmartDashboard.getNumber("Kp", Kp);
-    SmartDashboard.getNumber("Ki", Ki);
-    SmartDashboard.getNumber("Kd", Kd);
-
-    PIDController turret_Controller = new PIDController(Kp, Ki, Kd);
-    double turret_Move = turret_Controller.calculate(getTurretEncoder());
-
-    setTurretSpeed(turret_Move);
-
-    turret_Controller.close();
+  if(turret_encoder.get() > 20){
+    turret.set(ControlMode.PercentOutput, 0.15);
+  }else if(turret_encoder.get() > -20){
+    turret.set(ControlMode.PercentOutput,-0.15);
+  }
 
   }
 
-  
+  public void resetTurretEncoder(){
+    turret_encoder.reset();
+  }
 
   public Boolean getLimitSwitchValue(){
     return limitSwitch.get();
@@ -200,6 +195,7 @@ public class TurretSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("# 14", pdp.getCurrent(14));
     SmartDashboard.putNumber("# 1", pdp.getCurrent(1));
 
+    SmartDashboard.putNumber("Turret Encoder", turret_encoder.get());
     hoodEncoder.setPositionConversionFactor(100);
     SmartDashboard.putNumber("Hood encoder Value", hoodEncoder.getPosition());
     if(limitSwitch.get() == false){

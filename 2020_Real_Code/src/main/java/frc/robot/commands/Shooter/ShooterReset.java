@@ -11,16 +11,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
 import frc.robot.subsystems.Shooter.TurretSubsystem;
 
-public class ShootRight extends CommandBase {
+public class ShooterReset extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final FlyWheelSubsystem flyWheelSubsystem;
   /**
-   * Creates a new ShootRight.
+   * Creates a new ShooterReset.
    */
-  public ShootRight(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2) {
+  public ShooterReset(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2) {
+    // Use addRequirements() here to declare subsystem dependencies.
     turretSubsystem = subsystem;
     flyWheelSubsystem = subsystem2;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     addRequirements(subsystem2);
   }
@@ -28,20 +28,25 @@ public class ShootRight extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flyWheelSubsystem.setFlyWheelUP();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turretSubsystem.AdjustTurretXRight();
-    turretSubsystem.TargetAimY();
+    flyWheelSubsystem.setFlyWheelOff();
+    turretSubsystem.ShowData();
+    turretSubsystem.setBrake();
+    turretSubsystem.setTurretHome();
+    if(turretSubsystem.getLimitSwitchValue() == false){
+      turretSubsystem.setHoodSpeed(0.0);
+    }else{
+      turretSubsystem.setHoodSpeed(-0.10);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    flyWheelSubsystem.setFlyWheelOff();
   }
 
   // Returns true when the command should end.
