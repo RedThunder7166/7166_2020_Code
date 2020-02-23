@@ -97,22 +97,24 @@ public class TurretSubsystem extends SubsystemBase {
   public void AdjustTurretXCenter(){
     double tx = getTX();
     double Kp = 0.01f;
-    double min_Command = 0.0775f;
+    double min_Command = 0.08f;
 
     
     if(getTV() == 1){
       double heading_error = -tx;
       double Turret_adjust = 0.0f;
 
-      if(tx > 0.20){
+      if(tx > -1.10){
         Turret_adjust = Kp *heading_error - min_Command;
 
-      }else if(tx < -0.20){
+      }else if(tx < -1.50){
         Turret_adjust = Kp *heading_error + min_Command;
 
       }    
       System.out.println("Steering:" + Turret_adjust);
       setTurretSpeed(-Turret_adjust);
+    }else{
+      setTurretSpeed(0);
     }
     System.out.println("test");
   }
@@ -120,22 +122,24 @@ public class TurretSubsystem extends SubsystemBase {
   public void AdjustTurretXRight(){
     double tx = getTX();
     double Kp = 0.01f;
-    double min_Command = 0.0775f;
+    double min_Command = 0.08f;
 
     
     if(getTV() == 1){
       double heading_error = -tx;
       double Turret_adjust = 0.0f;
 
-      if(tx > -5.0){
+      if(tx > -11.6){
         Turret_adjust = Kp *heading_error - min_Command;
 
-      }else if(tx < -5.0){
+      }else if(tx < -12.0){
         Turret_adjust = Kp *heading_error + min_Command;
 
       }    
       System.out.println("Steering:" + Turret_adjust);
       setTurretSpeed(-Turret_adjust);
+    }else{
+      setTurretSpeed(0);
     }
   }
 
@@ -158,6 +162,8 @@ public class TurretSubsystem extends SubsystemBase {
       }
       System.out.println("Steering:" + Turret_adjust);
       setTurretSpeed(-Turret_adjust);
+    }else{
+      setTurretSpeed(0);
     }
   }
 
@@ -214,9 +220,12 @@ public class TurretSubsystem extends SubsystemBase {
 
     if(getTV() == 1){
 
-      if(hoodEncoder.getPosition() > ((((-27 * getTA()) + 488)) + 20)){
-        hoodAdjustMotor.set(-0.05);
-      }else if(hoodEncoder.getPosition() < ((((-27 * getTA()) + 488)) - 20)){
+      getTA();
+      if(hoodEncoder.getPosition() > ((((-27 * getTA()) + 650)) + 15)){
+        setCoast();
+        hoodAdjustMotor.set(-0.04);
+      }else if(hoodEncoder.getPosition() < ((((-27 * getTA()) + 650)) - 15)){
+        setCoast();
         hoodAdjustMotor.set(0.05);
       }else{
         hoodAdjustMotor.set(0);
@@ -224,6 +233,8 @@ public class TurretSubsystem extends SubsystemBase {
       }
 
   
+    }else{
+      setBrake();
     }
   }
 
