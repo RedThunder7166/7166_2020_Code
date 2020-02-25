@@ -54,14 +54,10 @@ public class DriveSubsystem extends SubsystemBase {
     // public double relativeAngle = 0.0;
     // public double Turningvalue = 0.0;
   
-    public double getTurningValue(double Drive_setpoint){
-      double Turningvalue = (Drive_setpoint - drive_Gyro.getAngle() *Turning_constant);
-      return Turningvalue;
-    }
-  
-    public double setRelavitveAngle(double relativeangle){
-      double angle = drive_Gyro.getAngle() + relativeangle;
-      double Turningvalue = (angle - drive_Gyro.getAngle() *Turning_constant);
+
+    public double setRelavitveAngle(double angle){
+      double relativeAngle = -(drive_Gyro.getAngle() + angle);
+      double Turningvalue = (relativeAngle - drive_Gyro.getAngle() *Turning_constant);
       return Turningvalue;
     }
 
