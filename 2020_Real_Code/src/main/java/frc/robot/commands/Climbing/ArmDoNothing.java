@@ -5,47 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Climbing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
-import frc.robot.subsystems.Shooter.TurretSubsystem;
+import frc.robot.subsystems.Climb.ArmSubsystem;
 
-public class ShooterReset extends CommandBase {
-  private final TurretSubsystem turretSubsystem;
-  private final FlyWheelSubsystem flyWheelSubsystem;
+public class ArmDoNothing extends CommandBase {
+  private final ArmSubsystem armSubsystem; 
   /**
-   * Creates a new ShooterReset.
+   * Creates a new ArmDoNothing.
    */
-  public ShooterReset(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2) {
+  public ArmDoNothing(ArmSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    turretSubsystem = subsystem;
-    flyWheelSubsystem = subsystem2;
+    armSubsystem = subsystem;
     addRequirements(subsystem);
-    addRequirements(subsystem2);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // TODO: have it set the turret encoder to zero every auton.
-    turretSubsystem.turret_encoder.reset();
-    flyWheelSubsystem.counterReset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    flyWheelSubsystem.setFlyWheelOff();
-    turretSubsystem.ShowData();
-    flyWheelSubsystem.ballSwitch();
-    turretSubsystem.setBrake();
-    turretSubsystem.setTurretHome();
-    if(turretSubsystem.getLimitSwitchValue() == false){
-      turretSubsystem.setHoodSpeed(0.0);
-    }else{
-      turretSubsystem.setHoodSpeed(-0.10);
-    }
+    armSubsystem.setArmSpeed(0.0);
+    armSubsystem.brake();
   }
 
   // Called once the command ends or is interrupted.

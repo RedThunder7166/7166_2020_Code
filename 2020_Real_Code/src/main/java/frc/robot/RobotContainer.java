@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import frc.robot.commands.Climbing.ArmDoNothing;
+import frc.robot.commands.Climbing.ArmDown;
+import frc.robot.commands.Climbing.ArmUp;
 import frc.robot.commands.Conveyor.Intake;
 import frc.robot.commands.Conveyor.IntakeConveyorIn;
 import frc.robot.commands.Conveyor.IntakeConveyorOut;
@@ -35,7 +38,6 @@ import frc.robot.commands.Shooter.TurretEncoderReset;
 import frc.robot.commands.Shooter.TurretReturnHome;
 import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Climb.ClimbAdjustSubsystem;
-import frc.robot.subsystems.Climb.ElevatorSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Drive.PneumaticsSubsystem;
@@ -55,9 +57,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  public static ArmSubsystem armSubsystem = new ArmSubsystem();
-  public static ClimbAdjustSubsystem climbAdjustSubsystem = new ClimbAdjustSubsystem();
-  public static ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private final ArmSubsystem armSubsystem = new ArmSubsystem();
+  private final ClimbAdjustSubsystem climbAdjustSubsystem = new ClimbAdjustSubsystem();
+  // public static ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
 
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
@@ -142,6 +144,7 @@ public class RobotContainer {
     pneumaticsSubsystem.setDefaultCommand(new PneumaticsDoNothing(pneumaticsSubsystem));
     turretSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
     flyWheelSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
+    armSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem));
 
   }
 
@@ -169,6 +172,8 @@ public class RobotContainer {
     Left_Bottom_Middle_Button.whileHeld(new ConveyorXIn(conveyorSubsystem));
     Left_Top_Left_Button.whileHeld(new IntakeConveyorOut(conveyorSubsystem));
     Left_Bottom_Left_Button.whileHeld(new IntakeConveyorIn(conveyorSubsystem));
+    Right_Top_Right_Button.whileHeld(new ArmUp(armSubsystem));
+    Right_Bottom_Right_Buttom.whileHeld(new ArmDown(armSubsystem));
 
 
   }

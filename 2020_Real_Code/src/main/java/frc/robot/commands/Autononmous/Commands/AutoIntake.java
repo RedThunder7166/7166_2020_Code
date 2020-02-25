@@ -5,47 +5,36 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Autononmous.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
-import frc.robot.subsystems.Shooter.TurretSubsystem;
+import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 
-public class ShooterReset extends CommandBase {
-  private final TurretSubsystem turretSubsystem;
-  private final FlyWheelSubsystem flyWheelSubsystem;
+public class AutoIntake extends CommandBase {
+  private final ConveyorSubsystem conveyorSubsystem;
+  private final double speed;
   /**
-   * Creates a new ShooterReset.
+   * Creates a new AutoIntake.
    */
-  public ShooterReset(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2) {
+  public AutoIntake(ConveyorSubsystem subsystem, double intakeSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    turretSubsystem = subsystem;
-    flyWheelSubsystem = subsystem2;
-    addRequirements(subsystem);
-    addRequirements(subsystem2);
+    conveyorSubsystem = subsystem;
+    speed = intakeSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // TODO: have it set the turret encoder to zero every auton.
-    turretSubsystem.turret_encoder.reset();
-    flyWheelSubsystem.counterReset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    flyWheelSubsystem.setFlyWheelOff();
-    turretSubsystem.ShowData();
-    flyWheelSubsystem.ballSwitch();
-    turretSubsystem.setBrake();
-    turretSubsystem.setTurretHome();
-    if(turretSubsystem.getLimitSwitchValue() == false){
-      turretSubsystem.setHoodSpeed(0.0);
-    }else{
-      turretSubsystem.setHoodSpeed(-0.10);
-    }
+    
+    conveyorSubsystem.setIntakeSpeed(speed);
+    conveyorSubsystem.setHorizontalConveyorSpeed(speed);
+    conveyorSubsystem.setVerticalConveyorSpeed(speed);
+
   }
 
   // Called once the command ends or is interrupted.

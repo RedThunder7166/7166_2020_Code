@@ -9,6 +9,7 @@ package frc.robot.subsystems.Climb;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -35,6 +36,11 @@ public void setArmSpeed(double speed){
 
 public void moveShoulder(double speed){
   ShoulderMotor.set(speed);
+}
+
+
+public void brake(){
+  ShoulderMotor.setIdleMode(IdleMode.kBrake);
 }
 
   @Override

@@ -172,7 +172,7 @@ public class TurretSubsystem extends SubsystemBase {
   public void setTurretHome(){
   if(turret_encoder.get() > 20){
     turret.set(ControlMode.PercentOutput, 0.15);
-  }else if(turret_encoder.get() > -20){
+  }else if(turret_encoder.get() < -20){
     turret.set(ControlMode.PercentOutput,-0.15);
   }
 
@@ -194,6 +194,7 @@ public class TurretSubsystem extends SubsystemBase {
   public void ShowData(){
     SmartDashboard.putNumber("# 14", pdp.getCurrent(14));
     SmartDashboard.putNumber("# 1", pdp.getCurrent(1));
+    SmartDashboard.putNumber("# 0 ", pdp.getCurrent(0));
 
     SmartDashboard.putNumber("Turret Encoder", turret_encoder.get());
     hoodEncoder.setPositionConversionFactor(100);
