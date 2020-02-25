@@ -7,24 +7,25 @@
 
 // package frc.robot.commands.Autononmous.Groups;
 
-// import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-// import frc.robot.commands.Conveyor.Intake;
-// import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
-// import frc.robot.subsystems.Drive.DriveSubsystem;
-// import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
-// import frc.robot.subsystems.Shooter.TurretSubsystem;
 
-// // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// // information, see:
-// // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-// public class FiveBallAuton extends ParallelCommandGroup {
-//   /**
-//    * Creates a new FiveBallAuton.
-//    */
-//   public FiveBallAuton(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
-//     // Add your commands in the super() call, e.g.
-//     addCommands(new  Intake(conveyorSubsystem, opjoystick),
-//                 new FiveBallMoves(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem)
-//     );
-//   }
-// }
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.Autononmous.Commands.AutoIntake;
+import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
+import frc.robot.subsystems.Drive.DriveSubsystem;
+import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
+import frc.robot.subsystems.Shooter.TurretSubsystem;
+
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
+public class FiveBallAuton extends ParallelCommandGroup {
+  /**
+   * Creates a new FiveBallAuton.
+   */
+  public FiveBallAuton(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
+    // Add your commands in the super() call, e.g.
+    addCommands(new  AutoIntake(conveyorSubsystem, .50),
+                new FiveBallMoves(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem)
+    );
+  }
+}
