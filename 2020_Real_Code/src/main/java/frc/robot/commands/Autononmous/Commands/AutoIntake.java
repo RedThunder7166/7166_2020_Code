@@ -31,9 +31,7 @@ public class AutoIntake extends CommandBase {
   @Override
   public void execute() {
     
-    conveyorSubsystem.setIntakeSpeed(speed);
-    conveyorSubsystem.setHorizontalConveyorSpeed(speed);
-    conveyorSubsystem.setVerticalConveyorSpeed(speed);
+    conveyorSubsystem.fullIntake(speed);
 
   }
 

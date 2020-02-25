@@ -30,7 +30,7 @@ public class FiveBallMoves extends SequentialCommandGroup {
                 new MoveAngle(driveSubsystem, 125), 
                 new MoveDistance(driveSubsystem, 0.75, 231.6),
                 new MoveAngle(driveSubsystem, 55),
-                new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem)
+                new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem, 5)
                 );
   }
 }

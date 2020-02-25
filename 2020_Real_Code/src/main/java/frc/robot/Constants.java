@@ -26,6 +26,7 @@ public final class Constants {
   // Digital ports
   public static final int HOOD_LIMIT_SWITCH = 0;
   public static final int BALL_LIMIT_SWITCH = 1;
+  public static final int CONVEYOR_LIMIT_SWITCH = 2;
   
   // Conveyor ports
   public static final int CONVEYOR_BOTTOM_CAN = 11; // Bag / VictorSPX

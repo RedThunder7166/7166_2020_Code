@@ -16,13 +16,15 @@ public class ShootCenter extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final FlyWheelSubsystem flyWheelSubsystem;
   private final ConveyorSubsystem conveyorSubsystem;
+  private final int ballCount;
   /**
    * Creates a new ShootCenter.
    */
-  public ShootCenter(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2, ConveyorSubsystem subsystem3) {
+  public ShootCenter(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2, ConveyorSubsystem subsystem3, int BallCount) {
     turretSubsystem = subsystem;
     flyWheelSubsystem = subsystem2;
     conveyorSubsystem = subsystem3;
+    ballCount = BallCount;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     addRequirements(subsystem2);
@@ -60,7 +62,7 @@ public class ShootCenter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(flyWheelSubsystem.counter >= 5){
+    if(flyWheelSubsystem.counter >= ballCount){
       return true;
     }else{
       return false;
