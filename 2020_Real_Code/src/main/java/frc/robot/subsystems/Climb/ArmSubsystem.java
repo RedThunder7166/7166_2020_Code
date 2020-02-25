@@ -33,6 +33,10 @@ public void setArmSpeed(double speed){
   ElbowMotor.set(speed);
 }
 
+public void moveShoulder(double speed){
+  ShoulderMotor.set(speed);
+}
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

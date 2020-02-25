@@ -44,14 +44,13 @@ public final class Constants {
   public static final int FLY_WHEEL_LEFT_CAN = 5; // Neo / SparkMax
 
   // Elevator ports
-  public static final int ELEVATOR_UP_CAN = 7; // Neo / SparkMax
-  public static final int ELEVATOR_DOWN_CAN = 8;
+  public static final int WINCH_CAN = 14; // Neo / SparkMax
 
   // Shoulder ports
-  public static final int SHOULDER_CAN = 15; // Neo / SparkMax
+  public static final int SHOULDER_CAN = 7; // Neo / SparkMax
 
   // Elbow ports
-  public static final int ELBOW_CAN = 14; // Neo / SparkMax
+  public static final int ELBOW_CAN = 8; // Neo / SparkMax
 
   // Climb Adjust ports
   public static final int CLIMB_ADJUST_CAN = 10; // Neo550 / SparkMax
