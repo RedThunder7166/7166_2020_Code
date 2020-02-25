@@ -46,7 +46,7 @@ public class DriveSubsystem extends SubsystemBase {
     leftGroup.set(speed);
   }
   public void setRight(double speed){
-    rightGroup.set(speed);
+    rightGroup.set(-speed);
   }
 
     // public double Drive_setpoint = 0.0;
@@ -54,14 +54,10 @@ public class DriveSubsystem extends SubsystemBase {
     // public double relativeAngle = 0.0;
     // public double Turningvalue = 0.0;
   
-    public double getTurningValue(double Drive_setpoint){
-      double Turningvalue = (Drive_setpoint - drive_Gyro.getAngle() *Turning_constant);
-      return Turningvalue;
-    }
-  
     public double setRelavitveAngle(double angle){
-      double relativeAngle = drive_Gyro.getAngle() + angle;
-      return relativeAngle;
+      double relativeAngle = -(drive_Gyro.getAngle() + angle);
+      double Turningvalue = (relativeAngle - drive_Gyro.getAngle() *Turning_constant);
+      return Turningvalue;
     }
 
   public void RocketLeagueDrive(double moving, double turning) {
