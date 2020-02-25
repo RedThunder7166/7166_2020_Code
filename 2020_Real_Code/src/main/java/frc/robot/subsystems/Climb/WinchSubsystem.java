@@ -22,10 +22,10 @@ public class WinchSubsystem extends SubsystemBase {
 
   }
 
-  public CANSparkMax elevatorUp = new CANSparkMax(Constants.WINCH_CAN, MotorType.kBrushless);
+  public CANSparkMax winch = new CANSparkMax(Constants.WINCH_CAN, MotorType.kBrushless);
 
   public void setElevatorUp(double speed){
-    elevatorUp.set(speed);
+    winch.set(-speed);
   }
 
 

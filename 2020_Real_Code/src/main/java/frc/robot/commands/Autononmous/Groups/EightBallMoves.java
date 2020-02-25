@@ -32,7 +32,7 @@ public class EightBallMoves extends SequentialCommandGroup {
                 new MoveAngle(driveSubsystem, -30),
                 new MoveDistance(driveSubsystem, .75, 72),
                 new MoveAngle(driveSubsystem, -160),
-                new ShootRight(turretSubsystem, flywheelSubsystem, conveyorSubsystem)
+                new ShootRight(turretSubsystem, flywheelSubsystem, conveyorSubsystem, 3)
     );
   }
 }

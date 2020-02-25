@@ -35,9 +35,7 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyorSubsystem.setIntakeSpeed(intake.getAsDouble());
-    conveyorSubsystem.setHorizontalConveyorSpeed(intake.getAsDouble());
-    conveyorSubsystem.setVerticalConveyorSpeed(intake.getAsDouble());
+    conveyorSubsystem.fullIntake(intake.getAsDouble());
   }
 
   // Called once the command ends or is interrupted.

@@ -25,7 +25,7 @@ public class AutoLine extends SequentialCommandGroup {
   public AutoLine(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    addCommands(new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem),
+    addCommands(new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem, 3),
                 new MoveDistance(driveSubsystem, .50, -48)
     );
   }
