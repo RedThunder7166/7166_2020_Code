@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 // import com.revrobotics.CANSparkMax.IdleMode;
 // import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -29,6 +30,8 @@ public class FlyWheelSubsystem extends SubsystemBase {
   public TalonFX flyWheelRight = new TalonFX(Constants.FLY_WHEEL_RIGHT_CAN);
   public TalonFX flyWheelLeft = new TalonFX(Constants.FLY_WHEEL_LEFT_CAN);
   // public CANSparkMax flyWheelLeft = new CANSparkMax(Constants.FLY_WHEEL_LEFT_CAN, MotorType.kBrushless);
+  public DigitalInput limitSwitch = new DigitalInput(Constants.BALL_LIMIT_SWITCH);
+  public int counter = 0;
 
   
   public void manSpinUp(double speed){
@@ -37,30 +40,44 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void setFlyWheelUP(){
-    // double startUp = 0.01;
-    // double flyspeedRight = 0.0;
-    // double flyspeedLeft = 0.0;
+    double startUp = 0.012;
+    double flyspeedRight = 0.0;
+    double flyspeedLeft = 0.0;
 
-    // flyWheelLeft.configClosedloopRamp(secondsFromNeutralToFull)
     
-    flyWheelLeft.set(ControlMode.PercentOutput, 0.60);
-    flyWheelRight.set(ControlMode.PercentOutput, -0.60);
+    // flyWheelLeft.set(ControlMode.PercentOutput, 0.60);
+    // flyWheelRight.set(ControlMode.PercentOutput, -0.60);
 
-    // while(){
-    //   flyspeedRight -= startUp;
-    //   flyspeedLeft += startUp;
 
-    //   flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
-    //   flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
+    while(flyWheelLeft.getMotorOutputPercent() < 60 && flyWheelRight.getMotorOutputPercent() > -60){
+      flyspeedRight -= startUp;
+      flyspeedLeft += startUp;
 
-    // } if(){
-    //   // flyspeedLeft = 100;
-    //   // flyspeedRight = -100;
-    //   flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
-    //   flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
-    // } else{
+      flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
+      flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
 
-    // }
+    } if(flyWheelLeft.getMotorOutputPercent() == 60 && flyWheelRight.getMotorOutputPercent() == -60){
+      // flyspeedLeft = 100;
+      // flyspeedRight = -100;
+      flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
+      flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
+    } else{
+
+    }
+  }
+
+  public void ballSwitch(){
+    if(limitSwitch.get() == true){
+      counter += 1;
+    }
+
+  }
+
+  public double leftOutput(){
+    return flyWheelLeft.getMotorOutputPercent();
+  }
+  public double rightOutput(){
+    return flyWheelRight.getMotorOutputPercent();
   }
 
   // public void setFlyWheelDOWN(){

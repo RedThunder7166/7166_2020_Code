@@ -5,65 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Shooter;
+package frc.robot.commands.Conveyor;
+
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
-import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
-import frc.robot.subsystems.Shooter.TurretSubsystem;
 
-public class ShootCenter extends CommandBase {
-  private final TurretSubsystem turretSubsystem;
-  private final FlyWheelSubsystem flyWheelSubsystem;
+public class Intake extends CommandBase {
   private final ConveyorSubsystem conveyorSubsystem;
+  private final DoubleSupplier intake;
   /**
-   * Creates a new ShootCenter.
+   * Creates a new Intake.
    */
-  public ShootCenter(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2, ConveyorSubsystem subsystem3) {
-    turretSubsystem = subsystem;
-    flyWheelSubsystem = subsystem2;
-    conveyorSubsystem = subsystem3;
+  public Intake(ConveyorSubsystem subsystem, DoubleSupplier opjoystick) {
+    conveyorSubsystem = subsystem;
+    intake = opjoystick;
     // Use addRequirements() here to declare subsystem dependencies.
+    // addRequirements(RobotContainer.intakeSubsystem);
     addRequirements(subsystem);
-    addRequirements(subsystem2);
-    addRequirements(subsystem3);
   }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flyWheelSubsystem.setFlyWheelUP();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turretSubsystem.ShowData();
-    turretSubsystem.AdjustTurretXCenter();
-    turretSubsystem.TargetAimY();
-    if(flyWheelSubsystem.leftOutput() == 60 && flyWheelSubsystem.rightOutput() == -60){
-      conveyorSubsystem.setHorizontalConveyorSpeed(0.35);
-      conveyorSubsystem.setVerticalConveyorSpeed(0.35);
-    }
-    flyWheelSubsystem.ballSwitch();
-    
+    conveyorSubsystem.setIntakeSpeed(intake.getAsDouble());
+    conveyorSubsystem.setHorizontalConveyorSpeed(intake.getAsDouble());
+    conveyorSubsystem.setVerticalConveyorSpeed(intake.getAsDouble());
   }
-
-
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    flyWheelSubsystem.setFlyWheelOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(flyWheelSubsystem.counter >= 5){
-      return true;
-    }else{
     return false;
-  }
   }
 }

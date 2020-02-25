@@ -8,15 +8,15 @@
 package frc.robot.commands.Conveyor.ConveyorYFolder;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Conveyor.ConveyorYSubsystem;
+import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 
 public class ConveyorYOut extends CommandBase {
-  private final ConveyorYSubsystem conveyorYSubsystem;
+  private final ConveyorSubsystem conveyorSubsystem;
   /**
    * Creates a new ConveyorYOut.
    */
-  public ConveyorYOut(ConveyorYSubsystem subsystem) {
-    conveyorYSubsystem = subsystem;
+  public ConveyorYOut(ConveyorSubsystem subsystem) {
+    conveyorSubsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -29,7 +29,7 @@ public class ConveyorYOut extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    conveyorYSubsystem.setVerticalConveyorSpeed(-0.55);
+    conveyorSubsystem.setVerticalConveyorSpeed(-0.55);
   }
 
   // Called once the command ends or is interrupted.

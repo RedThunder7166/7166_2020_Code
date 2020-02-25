@@ -13,11 +13,11 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ConveyorYSubsystem extends SubsystemBase {
+public class ConveyorSubsystem extends SubsystemBase {
   /**
    * Creates a new ConveyorYSubsystem.
    */
-  public ConveyorYSubsystem() {
+  public ConveyorSubsystem() {
 
   }
 
@@ -28,7 +28,19 @@ public class ConveyorYSubsystem extends SubsystemBase {
       topConveyor.set(ControlMode.PercentOutput, speed);
   }
 
+  public VictorSPX BottomConveyor = new VictorSPX(Constants.CONVEYOR_BOTTOM_CAN);
 
+  public void setHorizontalConveyorSpeed(double speed){
+    BottomConveyor.setInverted(true);
+    BottomConveyor.set(ControlMode.PercentOutput, speed);
+  }
+
+  public VictorSPX intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_CAN);
+
+
+  public void setIntakeSpeed(double speed){
+    intakeMotor.set(ControlMode.PercentOutput, speed);
+  }
 
 
   @Override

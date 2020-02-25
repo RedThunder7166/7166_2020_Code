@@ -5,9 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.Shooter;
+package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class TurretEncoderReset extends CommandBase {
   private final TurretSubsystem turretSubsystem;

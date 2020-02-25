@@ -5,27 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
-import java.util.function.DoubleSupplier;
+package frc.robot.commands.Conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 
-public class Intake extends CommandBase {
-  private final IntakeSubsystem intakeSubsystem;
-  private final DoubleSupplier moveMotor;
+public class IntakeConveyorIn extends CommandBase {
+  private final ConveyorSubsystem conveyorSubsystem;
   /**
-   * Creates a new Intake.
+   * Creates a new IntakeConveyorIn.
    */
-  public Intake(IntakeSubsystem subsystem, DoubleSupplier output) {
-    intakeSubsystem = subsystem;
-    moveMotor = output;
+  public IntakeConveyorIn(ConveyorSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    // addRequirements(RobotContainer.intakeSubsystem);
+    conveyorSubsystem = subsystem;
     addRequirements(subsystem);
   }
-
 
   // Called when the command is initially scheduled.
   @Override
@@ -35,7 +29,8 @@ public class Intake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSubsystem.setIntakeSpeed(moveMotor.getAsDouble());
+    conveyorSubsystem.setIntakeSpeed(0.15);
+    
   }
 
   // Called once the command ends or is interrupted.

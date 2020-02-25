@@ -20,7 +20,8 @@ public final class Constants {
   public static final int TURRET_ENCODER = 0;
 
   // Digital ports
-  // public static final int TEMP_LIMIT_SWITCH = 0;
+  public static final int HOOD_LIMIT_SWITCH = 0;
+  public static final int BALL_LIMIT_SWITCH = 1;
   
   // Conveyor ports
   public static final int CONVEYOR_BOTTOM_CAN = 11; // Bag / VictorSPX
@@ -42,8 +43,9 @@ public final class Constants {
   public static final int FLY_WHEEL_RIGHT_CAN = 9; // Neo / SparkMax
   public static final int FLY_WHEEL_LEFT_CAN = 5; // Neo / SparkMax
 
-  // Winch ports
-  public static final int WINCH_CAN = 7; // Neo / SparkMax
+  // Elevator ports
+  public static final int ELEVATOR_UP_CAN = 7; // Neo / SparkMax
+  public static final int ELEVATOR_DOWN_CAN = 8;
 
   // Shoulder ports
   public static final int SHOULDER_CAN = 15; // Neo / SparkMax
