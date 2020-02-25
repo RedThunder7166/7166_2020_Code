@@ -7,10 +7,8 @@
 
 package frc.robot.commands.Autononmous.Groups;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Autononmous.Commands.MoveAngle;
-import frc.robot.commands.Autononmous.Commands.MoveDistance;
-import frc.robot.commands.Shooter.ShootCenter;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.commands.Conveyor.Intake;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
@@ -19,18 +17,15 @@ import frc.robot.subsystems.Shooter.TurretSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-public class FiveBallMoves extends SequentialCommandGroup {
+public class EightBallAuton extends ParallelCommandGroup {
   /**
-   * Creates a new FiveBallMoves.
+   * Creates a new EightBallAuton.
    */
-  public FiveBallMoves(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
+  public EightBallAuton(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
     // Add your commands in the super() call, e.g.
-    // super(new FooCommand(), new BarCommand());
-    addCommands(new MoveDistance(driveSubsystem, 0.75, 130.36),
-                new MoveAngle(driveSubsystem, 125), 
-                new MoveDistance(driveSubsystem, 0.75, 231.6),
-                new MoveAngle(driveSubsystem, 55),
-                new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem)
-                );
+    // super(new FooCommand(), new BarCommand());super();
+    addCommands(new Intake(conveyorSubsystem, opjoystick),
+                new EightBallMoves(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem)
+    );
   }
 }
