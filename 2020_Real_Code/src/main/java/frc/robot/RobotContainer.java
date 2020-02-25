@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Climbing.ArmDoNothing;
 import frc.robot.commands.Climbing.ArmDown;
 import frc.robot.commands.Climbing.ArmUp;
@@ -77,9 +79,12 @@ public class RobotContainer {
 
 
   // AUTONOMOUS COMMANDS
-  private final AutoLine autoLine = new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
-  private final FiveBallAuton fiveBallAuton = new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
-  private final EightBallAuton eightBallAuton = new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
+  Command m_autonomousCommand;
+  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+  // private final AutoLine autoLine = new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
+  // private final FiveBallAuton fiveBallAuton = new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
+  // private final EightBallAuton eightBallAuton = new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
 
 
   GenericHID joystick = new XboxController(Constants.DRIVE_CONTROLLER);
@@ -199,6 +204,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autoLine;
+    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    SmartDashboard.putData("Auto mode", m_chooser);
+    return m_autonomousCommand = m_chooser.getSelected();
   }
 }
