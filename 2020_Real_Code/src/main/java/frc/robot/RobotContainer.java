@@ -160,9 +160,9 @@ public class RobotContainer {
     RB_button.whileHeld(new HoodDown(turretSubsystem));
     A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
     Trigger.whenPressed(new TurretReturnHome(turretSubsystem));
-    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flyWheelSubsystem));
+    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flyWheelSubsystem, conveyorSubsystem));
     Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, flyWheelSubsystem, conveyorSubsystem));
-    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, flyWheelSubsystem));
+    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, flyWheelSubsystem, conveyorSubsystem));
     Left_Top_Right_Button.whileHeld(new ConveyorYOut(conveyorSubsystem));
     Left_Bottom_Right_Button.whileHeld(new ConveyorYIn(conveyorSubsystem));
     Left_Top_Middle_Button.whileHeld(new ConveyorXOut(conveyorSubsystem));

@@ -63,7 +63,7 @@ public class ShootCenter extends CommandBase {
     if(flyWheelSubsystem.counter >= 5){
       return true;
     }else{
-    return false;
-  }
+      return false;
+    }
   }
 }

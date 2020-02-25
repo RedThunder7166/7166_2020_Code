@@ -8,21 +8,25 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
 import frc.robot.subsystems.Shooter.TurretSubsystem;
 
 public class ShootLeft extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final FlyWheelSubsystem flyWheelSubsystem;
+  private final ConveyorSubsystem conveyorSubsystem;
   /**
    * Creates a new ShootLeft.
    */
-  public ShootLeft(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2) {
+  public ShootLeft(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2, ConveyorSubsystem subsystem3) {
     turretSubsystem = subsystem;
     flyWheelSubsystem = subsystem2;
+    conveyorSubsystem = subsystem3;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     addRequirements(subsystem2);
+    addRequirements(subsystem3);
   }
 
   // Called when the command is initially scheduled.
@@ -37,6 +41,12 @@ public class ShootLeft extends CommandBase {
     turretSubsystem.ShowData();
     turretSubsystem.AdjustTurretXLeft();
     turretSubsystem.TargetAimY();
+    if(flyWheelSubsystem.leftOutput() == 60 && flyWheelSubsystem.rightOutput() == -60){
+      conveyorSubsystem.setHorizontalConveyorSpeed(0.35);
+      conveyorSubsystem.setVerticalConveyorSpeed(0.35);
+    }
+    flyWheelSubsystem.ballSwitch();
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +58,10 @@ public class ShootLeft extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(flyWheelSubsystem.counter >= 5){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
