@@ -70,16 +70,16 @@ public class RobotContainer {
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
 
-  private final FlyWheelSubsystem flywheelSubsystem = new FlyWheelSubsystem();
+  private final FlyWheelSubsystem flyWheelSubsystem = new FlyWheelSubsystem();
   private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 
   private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
 
 
   // AUTONOMOUS COMMANDS
-  private final AutoLine autoLine = new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem);
-  private final FiveBallAuton fiveBallAuton = new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem);
-  private final EightBallAuton eightBallAuton = new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem);
+  private final AutoLine autoLine = new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
+  private final FiveBallAuton fiveBallAuton = new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
+  private final EightBallAuton eightBallAuton = new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
 
 
   GenericHID joystick = new XboxController(Constants.DRIVE_CONTROLLER);
@@ -151,7 +151,7 @@ public class RobotContainer {
                                                           () -> joystick.getRawAxis(Constants.DRIVE_LEFT_TRIGGER),
                                                           () -> joystick.getRawAxis(Constants.DRIVE_LEFT_X_AXIS)));
     conveyorSubsystem.setDefaultCommand(new Intake(conveyorSubsystem, () -> opjoystick.getRawAxis(Constants.OPERATOR_Y_AXIS)));
-    flywheelSubsystem.setDefaultCommand(new FlyWheelOff(flywheelSubsystem));
+    flyWheelSubsystem.setDefaultCommand(new FlyWheelOff(flyWheelSubsystem));
     pneumaticsSubsystem.setDefaultCommand(new PneumaticsDoNothing(pneumaticsSubsystem));
     turretSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
     flyWheelSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
@@ -169,14 +169,14 @@ public class RobotContainer {
 
     A_Button.whenPressed(new HighGear(pneumaticsSubsystem));
     B_Button.whenPressed(new LowGear(pneumaticsSubsystem));
-    X_button.toggleWhenPressed(new FlyWheelOn(flywheelSubsystem));
+    X_button.toggleWhenPressed(new FlyWheelOn(flyWheelSubsystem));
     LB_button.whileHeld(new HoodUp(turretSubsystem));
     RB_button.whileHeld(new HoodDown(turretSubsystem));
     A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
     Trigger.whenPressed(new TurretReturnHome(turretSubsystem));
-    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flywheelSubsystem, conveyorSubsystem));
-    Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem));
-    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, flywheelSubsystem, conveyorSubsystem));
+    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flyWheelSubsystem, conveyorSubsystem));
+    Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, flyWheelSubsystem, conveyorSubsystem));
+    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, flyWheelSubsystem, conveyorSubsystem));
     Left_Top_Right_Button.whileHeld(new ConveyorYOut(conveyorSubsystem));
     Left_Bottom_Right_Button.whileHeld(new ConveyorYIn(conveyorSubsystem));
     Left_Top_Middle_Button.whileHeld(new ConveyorXOut(conveyorSubsystem));
