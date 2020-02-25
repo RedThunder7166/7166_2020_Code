@@ -8,7 +8,7 @@
 package frc.robot.commands.Autononmous.Groups;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.Conveyor.Intake;
+import frc.robot.commands.Autononmous.Commands.AutoIntake;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
@@ -24,7 +24,7 @@ public class EightBallAuton extends ParallelCommandGroup {
   public EightBallAuton(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());super();
-    addCommands(new Intake(conveyorSubsystem, opjoystick),
+    addCommands(new AutoIntake(conveyorSubsystem, .50),
                 new EightBallMoves(driveSubsystem, turretSubsystem, conveyorSubsystem, flywheelSubsystem)
     );
   }

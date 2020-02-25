@@ -67,7 +67,7 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void ballSwitch(){
-    if(limitSwitch.get() == true){
+    if(limitSwitch.get() == false){
       counter += 1;
     }
 
