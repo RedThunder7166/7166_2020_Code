@@ -10,12 +10,12 @@ package frc.robot.commands.Climbing;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climb.ArmSubsystem;
 
-public class ArmUp extends CommandBase {
-    private final ArmSubsystem armSubsystem;
+public class ElbowUp extends CommandBase {
+  private final ArmSubsystem armSubsystem;
   /**
-   * Creates a new Arm.
+   * Creates a new ElbowUp.
    */
-  public ArmUp(ArmSubsystem subsystem) {
+  public ElbowUp(ArmSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     armSubsystem = subsystem;
     addRequirements(subsystem);
@@ -29,8 +29,8 @@ public class ArmUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.moveShoulder(0.20);
-    armSubsystem.brake();
+    armSubsystem.moveElbow(0.20);
+    armSubsystem.ElbowBrake();
   }
 
   // Called once the command ends or is interrupted.

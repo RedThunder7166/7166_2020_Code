@@ -13,10 +13,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Climbing.ArmDoNothing;
-import frc.robot.commands.Climbing.ArmDown;
-import frc.robot.commands.Climbing.ArmUp;
+import frc.robot.commands.Climbing.ElbowDown;
+import frc.robot.commands.Climbing.ElbowUp;
+import frc.robot.commands.Climbing.ShoulderDown;
+import frc.robot.commands.Climbing.ShoulderUp;
+import frc.robot.commands.Climbing.Winch;
 import frc.robot.commands.Climbing.WinchDoNothing;
 import frc.robot.commands.Autononmous.Groups.AutoLine;
 import frc.robot.commands.Autononmous.Groups.EightBallAuton;
@@ -186,22 +188,29 @@ public class RobotContainer {
 
     A_Button.whenPressed(new HighGear(pneumaticsSubsystem));
     B_Button.whenPressed(new LowGear(pneumaticsSubsystem));
+
     X_button.toggleWhenPressed(new FlyWheelOn(flyWheelSubsystem));
     LB_button.whileHeld(new HoodUp(turretSubsystem));
     RB_button.whileHeld(new HoodDown(turretSubsystem));
     A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
-    Trigger.whenPressed(new TurretReturnHome(turretSubsystem));
+
     Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
     Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
     Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
+
     Left_Top_Right_Button.whileHeld(new ConveyorYOut(conveyorSubsystem));
     Left_Bottom_Right_Button.whileHeld(new ConveyorYIn(conveyorSubsystem));
     Left_Top_Middle_Button.whileHeld(new ConveyorXOut(conveyorSubsystem));
     Left_Bottom_Middle_Button.whileHeld(new ConveyorXIn(conveyorSubsystem));
     Left_Top_Left_Button.whileHeld(new IntakeConveyorOut(conveyorSubsystem));
     Left_Bottom_Left_Button.whileHeld(new IntakeConveyorIn(conveyorSubsystem));
-    Right_Top_Right_Button.whileHeld(new ArmUp(armSubsystem));
-    Right_Bottom_Right_Buttom.whileHeld(new ArmDown(armSubsystem));
+    
+    Right_Top_Right_Button.whileHeld(new ShoulderUp(armSubsystem));
+    Right_Bottom_Right_Buttom.whileHeld(new ShoulderDown(armSubsystem));
+    Right_Top_Middle_Button.whileHeld(new ElbowUp(armSubsystem));
+    Right_Bottom_Middle_Button.whileHeld(new ElbowDown(armSubsystem));
+    Right_Top_Left_Button.whileHeld(new Winch(winchSubsystem));
+    
 
 
   }

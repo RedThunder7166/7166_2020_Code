@@ -29,7 +29,7 @@ public CANEncoder ShoulderEncoder = new CANEncoder(ShoulderMotor);
 public CANEncoder ElbowEncoder = new CANEncoder(ElbowMotor);
 
 
-public void setArmSpeed(double speed){
+public void moveElbow(double speed){
   ShoulderMotor.set(speed);
   ElbowMotor.set(speed);
 }
@@ -39,8 +39,12 @@ public void moveShoulder(double speed){
 }
 
 
-public void brake(){
+public void ShoulderBrake(){
   ShoulderMotor.setIdleMode(IdleMode.kBrake);
+}
+
+public void ElbowBrake(){
+  ElbowMotor.setIdleMode(IdleMode.kBrake);
 }
 
   @Override

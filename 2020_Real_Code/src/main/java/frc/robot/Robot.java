@@ -69,7 +69,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    // m_autonomousCommand = robotContainer.getAutonomousCommand();
+    m_autonomousCommand = robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -82,7 +82,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    // RobotContainer.flyWheelSubsystem.setFlyWheelUP();
 
   }
 
@@ -102,8 +101,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    TalonSRX turret = new TalonSRX(Constants.TEMP_GEAR_CAN);
-    turret.set(ControlMode.PercentOutput, 0);
+    // TalonSRX turret = new TalonSRX(Constants.TEMP_GEAR_CAN);
+    // turret.set(ControlMode.PercentOutput, 0);
   }
 
   @Override
