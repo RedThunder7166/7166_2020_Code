@@ -47,11 +47,11 @@ public class ConveyorSubsystem extends SubsystemBase {
   public void fullIntake(double speed){
     if(speed >= 0.10 || speed <= 0.10){
       if(limitSwitch.get() == true){
-        setIntakeSpeed(speed);
+        setIntakeSpeed(-speed);
         setHorizontalConveyorSpeed(speed);
         setVerticalConveyorSpeed(0);
       }else {
-        setIntakeSpeed(speed);
+        setIntakeSpeed(-speed);
         setHorizontalConveyorSpeed(speed);
         setVerticalConveyorSpeed(speed);
       }

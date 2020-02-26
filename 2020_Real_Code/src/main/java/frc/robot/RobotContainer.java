@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Climbing.ArmDoNothing;
 import frc.robot.commands.Climbing.ArmDown;
 import frc.robot.commands.Climbing.ArmUp;
+import frc.robot.commands.Climbing.WinchDoNothing;
 import frc.robot.commands.Autononmous.Groups.AutoLine;
 import frc.robot.commands.Autononmous.Groups.EightBallAuton;
 import frc.robot.commands.Autononmous.Groups.FiveBallAuton;
@@ -43,6 +45,7 @@ import frc.robot.commands.Shooter.TurretEncoderReset;
 import frc.robot.commands.Shooter.TurretReturnHome;
 import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Climb.ClimbAdjustSubsystem;
+import frc.robot.subsystems.Climb.WinchSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Drive.PneumaticsSubsystem;
@@ -67,7 +70,7 @@ public class RobotContainer {
 
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClimbAdjustSubsystem climbAdjustSubsystem = new ClimbAdjustSubsystem();
-  // public static ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  private final WinchSubsystem winchSubsystem = new WinchSubsystem();
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
@@ -81,6 +84,9 @@ public class RobotContainer {
   // AUTONOMOUS COMMANDS
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  
+   
   
   // private final AutoLine autoLine = new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
   // private final FiveBallAuton fiveBallAuton = new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
@@ -152,11 +158,17 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
+    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
+
     driveSubsystem.setDefaultCommand(new DriveTrain(driveSubsystem, () -> joystick.getRawAxis(Constants.DRIVE_RIGHT_TRIGGER),
                                                           () -> joystick.getRawAxis(Constants.DRIVE_LEFT_TRIGGER),
                                                           () -> joystick.getRawAxis(Constants.DRIVE_LEFT_X_AXIS)));
     conveyorSubsystem.setDefaultCommand(new Intake(conveyorSubsystem, () -> opjoystick.getRawAxis(Constants.OPERATOR_Y_AXIS)));
     flyWheelSubsystem.setDefaultCommand(new FlyWheelOff(flyWheelSubsystem));
+    winchSubsystem.setDefaultCommand(new WinchDoNothing(winchSubsystem));
     pneumaticsSubsystem.setDefaultCommand(new PneumaticsDoNothing(pneumaticsSubsystem));
     turretSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
     flyWheelSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
@@ -204,10 +216,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    SmartDashboard.putData("Auto mode", m_chooser);
     return m_autonomousCommand = m_chooser.getSelected();
   }
 }

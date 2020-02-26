@@ -10,12 +10,12 @@ package frc.robot.commands.Climbing;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climb.WinchSubsystem;
 
-public class Winch extends CommandBase {
-    private final WinchSubsystem winchSubsystem;
+public class WinchDoNothing extends CommandBase {
+  private final WinchSubsystem winchSubsystem;
   /**
-   * Creates a new Winch.
+   * Creates a new WinchDoNothing.
    */
-  public Winch(WinchSubsystem subsystem) {
+  public WinchDoNothing(WinchSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     winchSubsystem = subsystem;
     addRequirements(subsystem);
@@ -24,14 +24,13 @@ public class Winch extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    winchSubsystem.setWinchSpeed(0.0);
     winchSubsystem.Brake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    winchSubsystem.setWinchSpeed(0.86);
-
   }
 
   // Called once the command ends or is interrupted.
