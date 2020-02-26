@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems.Climb;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -24,14 +27,13 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public CANSparkMax ShoulderMotor = new CANSparkMax(Constants.SHOULDER_CAN, MotorType.kBrushless);
-public CANSparkMax ElbowMotor = new CANSparkMax(Constants.ELBOW_CAN, MotorType.kBrushless);
+public VictorSPX ElbowMotor = new VictorSPX(Constants.ELBOW_CAN);
 public CANEncoder ShoulderEncoder = new CANEncoder(ShoulderMotor);
-public CANEncoder ElbowEncoder = new CANEncoder(ElbowMotor);
 
 
 public void moveElbow(double speed){
   ShoulderMotor.set(speed);
-  ElbowMotor.set(speed);
+  ElbowMotor.set(ControlMode.PercentOutput, speed);
 }
 
 public void moveShoulder(double speed){
@@ -44,7 +46,7 @@ public void ShoulderBrake(){
 }
 
 public void ElbowBrake(){
-  ElbowMotor.setIdleMode(IdleMode.kBrake);
+  ElbowMotor.setNeutralMode(NeutralMode.Brake);
 }
 
   @Override

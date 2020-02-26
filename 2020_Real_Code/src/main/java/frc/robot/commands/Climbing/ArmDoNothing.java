@@ -30,7 +30,7 @@ public class ArmDoNothing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.moveShoulder(0.0);
+    armSubsystem.moveShoulder(0.15 );
     armSubsystem.ShoulderBrake();
     armSubsystem.moveElbow(0.0);
     armSubsystem.ElbowBrake();
