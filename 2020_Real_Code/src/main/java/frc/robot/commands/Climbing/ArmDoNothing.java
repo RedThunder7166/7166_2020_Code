@@ -33,7 +33,8 @@ public class ArmDoNothing extends CommandBase {
     
     if(armSubsystem.getShoulderSwitch() == true){
       armSubsystem.moveShoulder(0.0);
-    }else{
+    }
+    if(armSubsystem.getShoulderSwitch() == false){
       armSubsystem.moveShoulder(0.10);
     }
     armSubsystem.ShoulderBrake();
