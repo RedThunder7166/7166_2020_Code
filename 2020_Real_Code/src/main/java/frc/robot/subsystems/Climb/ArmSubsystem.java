@@ -35,8 +35,7 @@ public DigitalInput ElbowSwitch = new DigitalInput(Constants.ELBOW_LIMIT_SWITCH)
 
 
 public void moveElbow(double speed){
-  ShoulderMotor.set(speed);
-  ElbowMotor.set(ControlMode.PercentOutput, speed);
+  ElbowMotor.set(ControlMode.PercentOutput, -speed);
 }
 
 public void moveShoulder(double speed){

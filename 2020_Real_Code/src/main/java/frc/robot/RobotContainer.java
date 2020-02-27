@@ -161,11 +161,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    Shuffleboard.getTab("Autonomous").add(m_chooser);
-
     driveSubsystem.setDefaultCommand(new DriveTrain(driveSubsystem, () -> joystick.getRawAxis(Constants.DRIVE_RIGHT_TRIGGER),
                                                           () -> joystick.getRawAxis(Constants.DRIVE_LEFT_TRIGGER),
                                                           () -> joystick.getRawAxis(Constants.DRIVE_LEFT_X_AXIS)));
@@ -177,6 +172,10 @@ public class RobotContainer {
     flyWheelSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
     armSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem));
 
+    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
   /**
@@ -190,7 +189,7 @@ public class RobotContainer {
     A_Button.whenPressed(new HighGear(pneumaticsSubsystem));
     B_Button.whenPressed(new LowGear(pneumaticsSubsystem));
 
-    X_button.whenPressed(new FlyWheelOn(flyWheelSubsystem));
+    X_button.toggleWhenPressed(new FlyWheelOn(flyWheelSubsystem));
     LB_button.whileHeld(new HoodUp(turretSubsystem));
     RB_button.whileHeld(new HoodDown(turretSubsystem));
     A_button.whileHeld(new TurretEncoderReset(turretSubsystem));

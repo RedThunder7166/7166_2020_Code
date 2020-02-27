@@ -14,6 +14,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -78,8 +79,10 @@ public class DriveSubsystem extends SubsystemBase {
     }
 
      differentialRocketLeagueDrive.arcadeDrive(speed, turn);
-    //  System.out.println("Turn" + turn);
+    // System.out.println("Turn" + turn);
     //  System.out.println("Speed = " + speed);
+    SmartDashboard.putNumber("Turn", turn);
+    SmartDashboard.putNumber("Speed", speed);
   }
 
   public void setBrakeMode(){
