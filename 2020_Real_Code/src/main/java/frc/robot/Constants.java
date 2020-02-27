@@ -24,10 +24,12 @@ public final class Constants {
   public static final int TURRET_ENCODER = 0;
 
   // Digital ports
+
   public static final int HOOD_LIMIT_SWITCH = 0;
   public static final int BALL_LIMIT_SWITCH = 1;
   public static final int CONVEYOR_LIMIT_SWITCH = 2;
-  
+  public static final int ARM_LIMIT_SWITCH = 3;  
+  public static final int ELBOW_LIMIT_SWITCH = 4;
   // Conveyor ports
   public static final int CONVEYOR_BOTTOM_CAN = 11; // Bag / VictorSPX
 
@@ -119,6 +121,7 @@ public final class Constants {
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
+
 
 
 }

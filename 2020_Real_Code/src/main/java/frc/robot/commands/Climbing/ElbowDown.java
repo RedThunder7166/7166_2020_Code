@@ -30,6 +30,9 @@ public class ElbowDown extends CommandBase {
   @Override
   public void execute() {
     armSubsystem.moveElbow(-0.20);
+    if(armSubsystem.getElbowSwitch() == true){
+      armSubsystem.moveElbow(0.0);
+    }
     armSubsystem.ElbowBrake();
 
   }

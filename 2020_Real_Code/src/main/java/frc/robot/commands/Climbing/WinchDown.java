@@ -8,18 +8,16 @@
 package frc.robot.commands.Climbing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Climb.ArmSubsystem;
+import frc.robot.subsystems.Climb.WinchSubsystem;
 
-public class ShoulderDown extends CommandBase {
-  private final ArmSubsystem armSubsystem;
-
+public class WinchDown extends CommandBase {
+  private final WinchSubsystem winchSubsystem;
   /**
-   * Creates a new ArmDown.
+   * Creates a new WinchDown.
    */
-  public ShoulderDown(ArmSubsystem subsystem) {
+  public WinchDown(WinchSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    armSubsystem = subsystem;
+    winchSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
@@ -31,11 +29,7 @@ public class ShoulderDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.moveShoulder(-0.20);
-    if(armSubsystem.getShoulderSwitch() == true){
-      armSubsystem.moveShoulder(0.0);
-    }
-    armSubsystem.ShoulderBrake();
+    winchSubsystem.setWinchSpeed(-0.86);
   }
 
   // Called once the command ends or is interrupted.

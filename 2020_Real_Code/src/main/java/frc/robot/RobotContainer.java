@@ -20,6 +20,7 @@ import frc.robot.commands.Climbing.ShoulderDown;
 import frc.robot.commands.Climbing.ShoulderUp;
 import frc.robot.commands.Climbing.Winch;
 import frc.robot.commands.Climbing.WinchDoNothing;
+import frc.robot.commands.Climbing.WinchDown;
 import frc.robot.commands.Autononmous.Groups.AutoLine;
 import frc.robot.commands.Autononmous.Groups.EightBallAuton;
 import frc.robot.commands.Autononmous.Groups.FiveBallAuton;
@@ -189,10 +190,11 @@ public class RobotContainer {
     A_Button.whenPressed(new HighGear(pneumaticsSubsystem));
     B_Button.whenPressed(new LowGear(pneumaticsSubsystem));
 
-    X_button.toggleWhenPressed(new FlyWheelOn(flyWheelSubsystem));
+    X_button.whenPressed(new FlyWheelOn(flyWheelSubsystem));
     LB_button.whileHeld(new HoodUp(turretSubsystem));
     RB_button.whileHeld(new HoodDown(turretSubsystem));
     A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
+    B_button.whileHeld(new WinchDown(winchSubsystem));
 
     Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
     Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
