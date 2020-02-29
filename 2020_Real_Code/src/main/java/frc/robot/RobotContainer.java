@@ -41,13 +41,17 @@ import frc.robot.commands.Shooter.HoodDown;
 // import frc.robot.commands.Shooter.HoodStop;
 import frc.robot.commands.Shooter.HoodUp;
 import frc.robot.commands.Shooter.ShootCenter;
+import frc.robot.commands.Shooter.ShootCenterTele;
 import frc.robot.commands.Shooter.ShootLeft;
+import frc.robot.commands.Shooter.ShootLeftTele;
 import frc.robot.commands.Shooter.ShootRight;
+import frc.robot.commands.Shooter.ShootRightTele;
 import frc.robot.commands.Shooter.ShooterReset;
 import frc.robot.commands.Shooter.TurretEncoderReset;
 import frc.robot.commands.Shooter.TurretReturnHome;
 import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Climb.ClimbAdjustSubsystem;
+import frc.robot.subsystems.Climb.ElbowSubsystem;
 import frc.robot.subsystems.Climb.WinchSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
@@ -74,6 +78,7 @@ public class RobotContainer {
   private final ArmSubsystem armSubsystem = new ArmSubsystem();
   private final ClimbAdjustSubsystem climbAdjustSubsystem = new ClimbAdjustSubsystem();
   private final WinchSubsystem winchSubsystem = new WinchSubsystem();
+  private final ElbowSubsystem elbowSubsystem = new ElbowSubsystem();
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
@@ -89,11 +94,12 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   
-   
+  //  private final Command simpleMove =  new 
   
   // private final AutoLine autoLine = new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
   // private final FiveBallAuton fiveBallAuton = new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
   // private final EightBallAuton eightBallAuton = new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem);
+
 
 
   GenericHID joystick = new XboxController(Constants.DRIVE_CONTROLLER);
@@ -170,11 +176,12 @@ public class RobotContainer {
     pneumaticsSubsystem.setDefaultCommand(new PneumaticsDoNothing(pneumaticsSubsystem));
     turretSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
     flyWheelSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
-    armSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem));
+    armSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem, elbowSubsystem));
+    elbowSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem, elbowSubsystem));
 
-    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
-    m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
+    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem, armSubsystem));
+    // m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem, armSubsystem));
+    // m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem, armSubsystem));
     Shuffleboard.getTab("Autonomous").add(m_chooser);
   }
 
@@ -195,9 +202,9 @@ public class RobotContainer {
     A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
     B_button.whileHeld(new WinchDown(winchSubsystem));
 
-    Left_Button_Joystick.whileHeld(new ShootLeft(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
-    Back_Button_Joystick.whileHeld(new ShootCenter(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
-    Right_Button_Joystick.whileHeld(new ShootRight(turretSubsystem, flyWheelSubsystem, conveyorSubsystem, 5));
+    Left_Button_Joystick.whileHeld(new ShootLeftTele(flyWheelSubsystem, turretSubsystem));
+    Back_Button_Joystick.whileHeld(new ShootCenterTele(flyWheelSubsystem, turretSubsystem));
+    Right_Button_Joystick.whileHeld(new ShootRightTele(flyWheelSubsystem, turretSubsystem));
 
     Left_Top_Right_Button.whileHeld(new ConveyorYOut(conveyorSubsystem));
     Left_Bottom_Right_Button.whileHeld(new ConveyorYIn(conveyorSubsystem));
@@ -208,8 +215,8 @@ public class RobotContainer {
     
     Right_Top_Right_Button.whileHeld(new ShoulderUp(armSubsystem));
     Right_Bottom_Right_Buttom.whileHeld(new ShoulderDown(armSubsystem));
-    Right_Top_Middle_Button.whileHeld(new ElbowUp(armSubsystem));
-    Right_Bottom_Middle_Button.whileHeld(new ElbowDown(armSubsystem));
+    Right_Top_Middle_Button.whileHeld(new ElbowUp(elbowSubsystem));
+    Right_Bottom_Middle_Button.whileHeld(new ElbowDown(elbowSubsystem));
     Right_Top_Left_Button.whileHeld(new Winch(winchSubsystem));
     
 

@@ -45,13 +45,17 @@ public class MoveDistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveSubsystem.leftEncoderReset();
+    driveSubsystem.rightEncoderReset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.setLeft(speed);
+    driveSubsystem.data();
+    driveSubsystem.setLeft(1.20*speed);
     driveSubsystem.setRight(speed);
+    
   }
 
   // Called once the command ends or is interrupted.
@@ -59,15 +63,14 @@ public class MoveDistance extends CommandBase {
   public void end(boolean interrupted) {
     driveSubsystem.setLeft(0);
     driveSubsystem.setRight(0);
+    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (driveSubsystem.leftEncoder.getPosition() >= distance){
+    return (driveSubsystem.getrightEncoder() <= (-distance));
+    //driveSubsystem.getleftEncoder() >= distance && 
 
-      return true;
-    }
-    return false;
   }
 }

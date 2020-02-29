@@ -8,6 +8,7 @@
 package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
 import frc.robot.subsystems.Shooter.TurretSubsystem;
@@ -16,19 +17,22 @@ public class ShootCenter extends CommandBase {
   private final TurretSubsystem turretSubsystem;
   private final FlyWheelSubsystem flyWheelSubsystem;
   private final ConveyorSubsystem conveyorSubsystem;
+  private final ArmSubsystem armSubsystem;
   private final int ballCount;
   /**
    * Creates a new ShootCenter.
    */
-  public ShootCenter(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2, ConveyorSubsystem subsystem3, int BallCount) {
+  public ShootCenter(TurretSubsystem subsystem, FlyWheelSubsystem subsystem2, ConveyorSubsystem subsystem3, ArmSubsystem subsystem4, int BallCount) {
     turretSubsystem = subsystem;
     flyWheelSubsystem = subsystem2;
     conveyorSubsystem = subsystem3;
+    armSubsystem = subsystem4;
     ballCount = BallCount;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
     addRequirements(subsystem2);
     addRequirements(subsystem3);
+    addRequirements(subsystem4);
   }
 
   // Called when the command is initially scheduled.
@@ -43,11 +47,16 @@ public class ShootCenter extends CommandBase {
     turretSubsystem.ShowData();
     turretSubsystem.AdjustTurretXCenter();
     turretSubsystem.TargetAimY();
-    if(flyWheelSubsystem.leftOutput() == 60 && flyWheelSubsystem.rightOutput() == -60){
+    armSubsystem.moveShoulder(-0.20);
+    if(armSubsystem.getShoulderSwitch() == true){
+    if(flyWheelSubsystem.leftOutput() == 0.58 && flyWheelSubsystem.rightOutput() == -0.58){
       conveyorSubsystem.setHorizontalConveyorSpeed(0.35);
       conveyorSubsystem.setVerticalConveyorSpeed(0.35);
     }
-    flyWheelSubsystem.ballSwitch();
+  }flyWheelSubsystem.ballSwitch();
+  if(flyWheelSubsystem.counter >= ballCount){
+    isFinished();
+  }
     
   }
 

@@ -82,8 +82,12 @@ public class TurretSubsystem extends SubsystemBase {
     return(tv.getDouble(0.0));
   }
 
-  public void test(){
+  public void LimelightLightsOff(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").forceSetNumber(1);
+  }
 
+  public void LimelightLightsOn(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").forceSetNumber(0);
   }
 
   public double getTurretEncoder(){
@@ -182,9 +186,9 @@ public class TurretSubsystem extends SubsystemBase {
 
   }
 
-  public void resetTurretEncoder(){
-    turret_encoder.reset();
-  }
+  // public void resetTurretEncoder(){
+  //   turret_encoder.reset();
+  // }
 
   public Boolean getLimitSwitchValue(){
     return limitSwitch.get();
@@ -222,10 +226,10 @@ public class TurretSubsystem extends SubsystemBase {
     if(getTV() == 1){
 
       getTA();
-      if(hoodEncoder.getPosition() > ((((-27 * getTA()) + 650)) + 15)){
+      if(hoodEncoder.getPosition() > ((((-27 * getTA()) + 560)) + 15)){
         setCoast();
         hoodAdjustMotor.set(-0.04);
-      }else if(hoodEncoder.getPosition() < ((((-27 * getTA()) + 650)) - 15)){
+      }else if(hoodEncoder.getPosition() < ((((-27 * getTA()) + 560)) - 15)){
         setCoast();
         hoodAdjustMotor.set(0.05);
       }else{

@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,15 +29,23 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   public CANSparkMax ShoulderMotor = new CANSparkMax(Constants.SHOULDER_CAN, MotorType.kBrushless);
-public VictorSPX ElbowMotor = new VictorSPX(Constants.ELBOW_CAN);
+// public VictorSPX ElbowMotor = new VictorSPX(Constants.ELBOW_CAN);
 public CANEncoder ShoulderEncoder = new CANEncoder(ShoulderMotor);
 public DigitalInput ShoulderSwitch = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
-public DigitalInput ElbowSwitch = new DigitalInput(Constants.ELBOW_LIMIT_SWITCH);
+// public DigitalInput ElbowSwitch = new DigitalInput(Constants.ELBOW_LIMIT_SWITCH);
 
-
-public void moveElbow(double speed){
-  ElbowMotor.set(ControlMode.PercentOutput, -speed);
+public double moveWithEncoder(){
+  ShoulderEncoder.setPositionConversionFactor(100);
+  return ShoulderEncoder.getPosition();
 }
+
+public void shoulderReset(){
+  ShoulderEncoder.setPosition(0.0);
+}
+
+// public void moveElbow(double speed){
+//   ElbowMotor.set(ControlMode.PercentOutput, -speed);
+// }
 
 public void moveShoulder(double speed){
   ShoulderMotor.set(speed);
@@ -46,18 +55,19 @@ public boolean getShoulderSwitch(){
   return ShoulderSwitch.get();
 }
 
-public boolean getElbowSwitch(){
-  return ElbowSwitch.get();
-}
+// public boolean getElbowSwitch(){
+//   return ElbowSwitch.get();
+// }
 
 
 public void ShoulderBrake(){
   ShoulderMotor.setIdleMode(IdleMode.kBrake);
+  
 }
 
-public void ElbowBrake(){
-  ElbowMotor.setNeutralMode(NeutralMode.Brake);
-}
+// public void ElbowBrake(){
+//   ElbowMotor.setNeutralMode(NeutralMode.Brake);
+// }
 
   @Override
   public void periodic() {

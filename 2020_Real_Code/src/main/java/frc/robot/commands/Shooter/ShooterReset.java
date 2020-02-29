@@ -29,18 +29,20 @@ public class ShooterReset extends CommandBase {
   @Override
   public void initialize() {
     // TODO: have it set the turret encoder to zero every auton.
-    turretSubsystem.turret_encoder.reset();
+    // turretSubsystem.turret_encoder.reset();
     flyWheelSubsystem.counterReset();
+    turretSubsystem.setTurretSpeed(0.0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    turretSubsystem.LimelightLightsOff();
     flyWheelSubsystem.setFlyWheelOff();
     turretSubsystem.ShowData();
     flyWheelSubsystem.ballSwitch();
     turretSubsystem.setBrake();
-    turretSubsystem.setTurretHome();
+    // turretSubsystem.setTurretHome();
     if(turretSubsystem.getLimitSwitchValue() == false){
       turretSubsystem.setHoodSpeed(0.0);
     }else{

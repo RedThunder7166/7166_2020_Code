@@ -43,30 +43,30 @@ public class FlyWheelSubsystem extends SubsystemBase {
   }
 
   public void setFlyWheelUP(){
-    // double startUp = 0.012;
-    // double flyspeedRight = 0.0;
-    // double flyspeedLeft = 0.0;
+    double startUp = 0.00001;
+    double flyspeedRight = 0.0;
+    double flyspeedLeft = 0.0;
 
     
-    flyWheelLeft.set(ControlMode.PercentOutput, 0.60);
-    flyWheelRight.set(ControlMode.PercentOutput, -0.60);
+    // flyWheelLeft.set(ControlMode.PercentOutput, 0.60);
+    // flyWheelRight.set(ControlMode.PercentOutput, -0.60);
 
 
-    // while(flyWheelLeft.getMotorOutputPercent() < 60 && flyWheelRight.getMotorOutputPercent() > -60){
-    //   flyspeedRight -= startUp;
-    //   flyspeedLeft += startUp;
+    while(flyWheelLeft.getMotorOutputPercent() < 0.60 && flyWheelRight.getMotorOutputPercent() > -0.60){
+      flyspeedRight -= startUp;
+      flyspeedLeft += startUp;
 
-    //   flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
-    //   flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
+      flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
+      flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
+      if(flyWheelLeft.getMotorOutputPercent() == 0.60 && flyWheelRight.getMotorOutputPercent() == -0.60){
+          // flyspeedLeft = 100;
+          // flyspeedRight = -100;
+          flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
+          flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
+        } else{
 
-    // } if(flyWheelLeft.getMotorOutputPercent() == 60 && flyWheelRight.getMotorOutputPercent() == -60){
-    //   // flyspeedLeft = 100;
-    //   // flyspeedRight = -100;
-    //   flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
-    //   flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
-    // } else{
-
-    // }
+        }
+    } 
   }
 private boolean prevState = false;
   public void ballSwitch(){ 

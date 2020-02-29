@@ -99,6 +99,11 @@ public class DriveSubsystem extends SubsystemBase {
     backRight.setIdleMode(IdleMode.kCoast);
   }
 
+  public void data(){
+    SmartDashboard.putNumber("left Encoder", leftEncoder.getPosition());
+    SmartDashboard.putNumber("right Encoder", rightEncoder.getPosition());
+  }
+
   public void TargetAimX(){
   //   double tx = RobotContainer.limelightsubsystem.getTX();
   //   double Kp = 0.01f;

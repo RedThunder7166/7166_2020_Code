@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Autononmous.Commands.MoveAngle;
 import frc.robot.commands.Autononmous.Commands.MoveDistance;
 import frc.robot.commands.Shooter.ShootCenter;
+import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
@@ -23,14 +24,14 @@ public class FiveBallMoves extends SequentialCommandGroup {
   /**
    * Creates a new FiveBallMoves.
    */
-  public FiveBallMoves(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
+  public FiveBallMoves(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem, ArmSubsystem armSubsystem) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
     addCommands(new MoveDistance(driveSubsystem, 0.75, 130.36),
                 new MoveAngle(driveSubsystem, 125), 
                 new MoveDistance(driveSubsystem, 0.75, 231.6),
                 new MoveAngle(driveSubsystem, 55),
-                new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem, 5)
+                new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem, armSubsystem, 5)
                 );
   }
 }

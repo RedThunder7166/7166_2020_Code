@@ -5,59 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climbing;
+package frc.robot.commands.Autononmous.Commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climb.ArmSubsystem;
-import frc.robot.subsystems.Climb.ElbowSubsystem;
 
-public class ArmDoNothing extends CommandBase {
+public class AutoArmUp extends CommandBase {
   private final ArmSubsystem armSubsystem;
-  private final ElbowSubsystem elbowSubsystem;
-
   /**
-   * Creates a new ArmDoNothing.
+   * Creates a new AutoArmUp.
    */
-  public ArmDoNothing(ArmSubsystem subsystem, ElbowSubsystem subsystem2) {
+  public AutoArmUp(ArmSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     armSubsystem = subsystem;
-    elbowSubsystem = subsystem2;
-    addRequirements(subsystem, subsystem2);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    armSubsystem.shoulderReset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(armSubsystem.getShoulderSwitch() == false){
-      armSubsystem.moveShoulder(0.0);
-    }
-    if(armSubsystem.getShoulderSwitch() == true){
-      armSubsystem.moveShoulder(0.02);
-    }
-    if(elbowSubsystem.getElbowSwitch() == false){
-      elbowSubsystem.moveElbow(0.0);
-    }
-    if(elbowSubsystem.getElbowSwitch() == true){
-      elbowSubsystem.moveElbow(0.10);
-    }
+
+    armSubsystem.moveShoulder(0.30);
     armSubsystem.ShoulderBrake();
-    elbowSubsystem.ElbowBrake();
+    SmartDashboard.putNumber("Shoulder Encoder Value", armSubsystem.moveWithEncoder());
+
+
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    armSubsystem.moveShoulder(-.10);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (armSubsystem.moveWithEncoder() >= 550);
   }
 }

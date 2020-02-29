@@ -8,7 +8,6 @@
 package frc.robot.commands.Climbing;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climb.ArmSubsystem;
 
 public class ShoulderDown extends CommandBase {
@@ -32,7 +31,8 @@ public class ShoulderDown extends CommandBase {
   @Override
   public void execute() {
     armSubsystem.moveShoulder(-0.20);
-    if(armSubsystem.getShoulderSwitch() == true){
+    if(armSubsystem.getShoulderSwitch() == false){
+      armSubsystem.ShoulderEncoder.setPosition(0.0);
       armSubsystem.moveShoulder(0.0);
     }
     armSubsystem.ShoulderBrake();

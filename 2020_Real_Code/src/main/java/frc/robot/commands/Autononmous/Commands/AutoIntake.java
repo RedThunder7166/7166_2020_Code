@@ -8,18 +8,22 @@
 package frc.robot.commands.Autononmous.Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 
 public class AutoIntake extends CommandBase {
   private final ConveyorSubsystem conveyorSubsystem;
+  private final ArmSubsystem armSubsystem;
   private final double speed;
   /**
    * Creates a new AutoIntake.
    */
-  public AutoIntake(ConveyorSubsystem subsystem, double intakeSpeed) {
+  public AutoIntake(ConveyorSubsystem subsystem, ArmSubsystem subsystem2, double intakeSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     conveyorSubsystem = subsystem;
+    armSubsystem = subsystem2;
     speed = intakeSpeed;
+    addRequirements(subsystem, subsystem2);
   }
 
   // Called when the command is initially scheduled.
@@ -30,8 +34,11 @@ public class AutoIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+  
+    armSubsystem.moveShoulder(-0.20);  
+    if(armSubsystem.getShoulderSwitch() == true){
     conveyorSubsystem.fullIntake(speed);
+    }
 
   }
 
