@@ -5,42 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climbing;
+package frc.robot.commands.Shooter;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.Climb.ArmSubsystem;
+import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
+import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
 
-public class ShoulderUp extends CommandBase {
-  private final ArmSubsystem armSubsystem;
-
+public class ShooterBackFeed extends CommandBase {
+  private final FlyWheelSubsystem flyWheelSubsystem;
+  private final ConveyorSubsystem conveyorSubsystem;
   /**
-   * Creates a new Arm.
+   * Creates a new ShooterBackFeed.
    */
-  public ShoulderUp(ArmSubsystem subsystem) {
+  public ShooterBackFeed(FlyWheelSubsystem subsystem, ConveyorSubsystem subsystem2) {
     // Use addRequirements() here to declare subsystem dependencies.
-    armSubsystem = subsystem;
-    addRequirements(subsystem);
+    flyWheelSubsystem = subsystem;
+    conveyorSubsystem = subsystem2;
+    addRequirements(subsystem, subsystem2);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-    armSubsystem.ShoulderBrake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.moveShoulder(0.20);
+    conveyorSubsystem.setVerticalConveyorSpeed(-0.30);
+    flyWheelSubsystem.manMove(-0.01);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // armSubsystem.moveShoulder(0.0);
   }
 
   // Returns true when the command should end.

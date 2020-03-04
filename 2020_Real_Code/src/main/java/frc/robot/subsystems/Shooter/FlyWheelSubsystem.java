@@ -37,9 +37,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
   
 
   
-  public void manSpinUp(double speed){
+  public void manMove(double speed){
     flyWheelLeft.set(ControlMode.PercentOutput, speed);
-    flyWheelRight.set(ControlMode.PercentOutput, speed);
+    flyWheelRight.set(ControlMode.PercentOutput, -speed);
   }
 
   public void setFlyWheelUP(){

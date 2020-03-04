@@ -37,9 +37,9 @@ public class ArmDoNothing extends CommandBase {
     if(armSubsystem.getShoulderSwitch() == false){
       armSubsystem.moveShoulder(0.0);
     }
-    if(armSubsystem.getShoulderSwitch() == true){
-      armSubsystem.moveShoulder(0.02);
-    }
+    // if(armSubsystem.getShoulderSwitch() == true){
+    //   armSubsystem.moveShoulder(0.02);
+    // }
     if(elbowSubsystem.getElbowSwitch() == false){
       elbowSubsystem.moveElbow(0.0);
     }

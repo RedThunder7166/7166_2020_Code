@@ -8,9 +8,12 @@
 package frc.robot.commands.Autononmous.Groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.RobotContainer;
 import frc.robot.commands.Autononmous.Commands.ARMTEST;
 import frc.robot.commands.Autononmous.Commands.AutoArmUp;
 import frc.robot.commands.Autononmous.Commands.MoveDistance;
+import frc.robot.commands.Climbing.ShoulderMoveTest;
+import frc.robot.commands.Climbing.ShoulderUp;
 import frc.robot.commands.Shooter.ShootCenter;
 import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
@@ -28,9 +31,10 @@ public class AutoLine extends SequentialCommandGroup {
   public AutoLine(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem, ArmSubsystem armSubsystem) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    addCommands(new MoveDistance(driveSubsystem, .15, 24)
-    // addCommands(new ARMTEST(armSubsystem)
+    // addCommands(
+    addCommands( new MoveDistance(driveSubsystem, .15, 24)
     );
+    // ShoulderUp(RobotContainer.armSubsystem).withTimeout(1) new ShoulderUp(armSubsystem),
     //new AutoArmUp(armSubsystem), new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem, armSubsystem, 3),
   }
 }

@@ -32,7 +32,7 @@ public class AutoArmUp extends CommandBase {
   @Override
   public void execute() {
 
-    armSubsystem.moveShoulder(0.30);
+    armSubsystem.moveShoulder(0.50);
     armSubsystem.ShoulderBrake();
     SmartDashboard.putNumber("Shoulder Encoder Value", armSubsystem.moveWithEncoder());
 
@@ -49,6 +49,7 @@ public class AutoArmUp extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (armSubsystem.moveWithEncoder() >= 550);
+    // return (armSubsystem.moveWithEncoder() >= 550);
+    return false;
   }
 }

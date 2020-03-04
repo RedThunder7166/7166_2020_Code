@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems.Climb;
 
+import java.util.Timer;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -18,6 +20,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -33,11 +36,19 @@ public class ArmSubsystem extends SubsystemBase {
 public CANEncoder ShoulderEncoder = new CANEncoder(ShoulderMotor);
 public DigitalInput ShoulderSwitch = new DigitalInput(Constants.ARM_LIMIT_SWITCH);
 // public DigitalInput ElbowSwitch = new DigitalInput(Constants.ELBOW_LIMIT_SWITCH);
-
+public WaitCommand wait = new WaitCommand(0);
 public double moveWithEncoder(){
   ShoulderEncoder.setPositionConversionFactor(100);
   return ShoulderEncoder.getPosition();
 }
+
+// public void startTimer(){
+//   wait.initialize();
+// }
+
+// public void setTime(double time){
+//   wait.WaitCommand
+// }
 
 public void shoulderReset(){
   ShoulderEncoder.setPosition(0.0);
