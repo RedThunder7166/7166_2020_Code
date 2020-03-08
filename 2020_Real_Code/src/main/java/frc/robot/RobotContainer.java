@@ -13,20 +13,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.commands.Climbing.ArmDoNothing;
-import frc.robot.commands.Climbing.ElbowDown;
-import frc.robot.commands.Climbing.ElbowUp;
-import frc.robot.commands.Climbing.ShoulderDown;
-import frc.robot.commands.Climbing.ShoulderUp;
-import frc.robot.commands.Climbing.Winch;
-import frc.robot.commands.Climbing.WinchDoNothing;
-import frc.robot.commands.Climbing.WinchDown;
+import frc.robot.commands.Climbing.ElevatorUp;
+import frc.robot.commands.Climbing.ElevatorDoNothing;
+import frc.robot.commands.Climbing.ElevatorDown;
+import frc.robot.Constants.OIConstants;
 import frc.robot.commands.Autononmous.Groups.AutoLine;
 // import frc.robot.commands.Autononmous.Groups.EightBallAuton;
 // import frc.robot.commands.Autononmous.Groups.FiveBallAuton;
 import frc.robot.commands.Conveyor.Intake;
 import frc.robot.commands.Conveyor.IntakeConveyorIn;
 import frc.robot.commands.Conveyor.IntakeConveyorOut;
+import frc.robot.commands.Conveyor.PneumaticIntakeDown;
+import frc.robot.commands.Conveyor.PneumaticIntakeNothing;
 import frc.robot.commands.Conveyor.ConveyorXFolder.ConveyorXIn;
 import frc.robot.commands.Conveyor.ConveyorXFolder.ConveyorXOut;
 import frc.robot.commands.Conveyor.ConveyorYFolder.ConveyorYIn;
@@ -46,15 +44,14 @@ import frc.robot.commands.Shooter.ShootCenterTele;
 import frc.robot.commands.Shooter.ShootLeftTele;
 // import frc.robot.commands.Shooter.ShootRight;
 import frc.robot.commands.Shooter.ShootRightTele;
-import frc.robot.commands.Shooter.ShooterBackFeed;
+// import frc.robot.commands.Shooter.ShooterBackFeed;
 import frc.robot.commands.Shooter.ShooterReset;
-import frc.robot.commands.Shooter.TurretEncoderReset;
+// import frc.robot.commands.Shooter.TurretEncoderReset;
 // import frc.robot.commands.Shooter.TurretReturnHome;
-import frc.robot.subsystems.Climb.ArmSubsystem;
 // import frc.robot.subsystems.Climb.ClimbAdjustSubsystem;
-import frc.robot.subsystems.Climb.ElbowSubsystem;
-import frc.robot.subsystems.Climb.WinchSubsystem;
+import frc.robot.subsystems.Climb.ElevatorSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
+import frc.robot.subsystems.Conveyor.PneumaticIntakeSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Drive.PneumaticsSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
@@ -76,10 +73,9 @@ public class RobotContainer {
 
   // SUBSYSTEMS
 
-  private final ArmSubsystem armSubsystem = new ArmSubsystem();
   // private final ClimbAdjustSubsystem climbAdjustSubsystem = new ClimbAdjustSubsystem();
-  private final WinchSubsystem winchSubsystem = new WinchSubsystem();
-  private final ElbowSubsystem elbowSubsystem = new ElbowSubsystem();
+  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+  
 
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final PneumaticsSubsystem pneumaticsSubsystem = new PneumaticsSubsystem();
@@ -88,6 +84,7 @@ public class RobotContainer {
   private final TurretSubsystem turretSubsystem = new TurretSubsystem();
 
   private final ConveyorSubsystem conveyorSubsystem = new ConveyorSubsystem();
+  private final PneumaticIntakeSubsystem pneumaticIntakeSubsystem = new PneumaticIntakeSubsystem();
 
 
   // AUTONOMOUS COMMANDS
@@ -103,11 +100,11 @@ public class RobotContainer {
 
 
 
-  GenericHID joystick = new XboxController(Constants.DRIVE_CONTROLLER);
+  GenericHID joystick = new XboxController(OIConstants.DRIVE_CONTROLLER);
 
-  GenericHID opjoystick = new Joystick(Constants.OPERATOR_CONTROLLER);
+  GenericHID opjoystick = new Joystick(OIConstants.OPERATOR_CONTROLLER);
 
-  GenericHID testing = new XboxController(Constants.TEST_CONTROLLER);
+  GenericHID testing = new XboxController(OIConstants.TEST_CONTROLLER);
 
   Button A_Button = new JoystickButton(joystick, 1);
   Button B_Button = new JoystickButton(joystick, 2);
@@ -168,19 +165,18 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    driveSubsystem.setDefaultCommand(new DriveTrain(driveSubsystem, () -> joystick.getRawAxis(Constants.DRIVE_RIGHT_TRIGGER),
-                                                          () -> joystick.getRawAxis(Constants.DRIVE_LEFT_TRIGGER),
-                                                          () -> joystick.getRawAxis(Constants.DRIVE_LEFT_X_AXIS)));
-    conveyorSubsystem.setDefaultCommand(new Intake(conveyorSubsystem, () -> opjoystick.getRawAxis(Constants.OPERATOR_Y_AXIS)));
+    driveSubsystem.setDefaultCommand(new DriveTrain(driveSubsystem, () -> joystick.getRawAxis(OIConstants.DRIVE_RIGHT_TRIGGER),
+                                                          () -> joystick.getRawAxis(OIConstants.DRIVE_LEFT_TRIGGER),
+                                                          () -> joystick.getRawAxis(OIConstants.DRIVE_LEFT_X_AXIS)));
+    conveyorSubsystem.setDefaultCommand(new Intake(conveyorSubsystem, () -> opjoystick.getRawAxis(OIConstants.OPERATOR_Y_AXIS)));
     flyWheelSubsystem.setDefaultCommand(new FlyWheelOff(flyWheelSubsystem));
-    winchSubsystem.setDefaultCommand(new WinchDoNothing(winchSubsystem));
+    elevatorSubsystem.setDefaultCommand(new ElevatorDoNothing(elevatorSubsystem));
     pneumaticsSubsystem.setDefaultCommand(new PneumaticsDoNothing(pneumaticsSubsystem));
     turretSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
     flyWheelSubsystem.setDefaultCommand(new ShooterReset(turretSubsystem, flyWheelSubsystem));
-    armSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem, elbowSubsystem));
-    elbowSubsystem.setDefaultCommand(new ArmDoNothing(armSubsystem, elbowSubsystem));
+    pneumaticIntakeSubsystem.setDefaultCommand(new PneumaticIntakeNothing(pneumaticIntakeSubsystem));
 
-    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem, armSubsystem));
+    m_chooser.setDefaultOption("Auto Line", new AutoLine(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem));
     // m_chooser.addOption("Five Ball Auton", new FiveBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem, armSubsystem));
     // m_chooser.addOption("Eight Ball Auton", new EightBallAuton(driveSubsystem, turretSubsystem, conveyorSubsystem, flyWheelSubsystem, armSubsystem));
     Shuffleboard.getTab("Autonomous").add(m_chooser);
@@ -200,10 +196,11 @@ public class RobotContainer {
     X_button.toggleWhenPressed(new FlyWheelOn(flyWheelSubsystem));
     LB_button.whileHeld(new HoodUp(turretSubsystem));
     RB_button.whileHeld(new HoodDown(turretSubsystem));
-    A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
-    B_button.whileHeld(new WinchDown(winchSubsystem));
+    // A_button.whileHeld(new TurretEncoderReset(turretSubsystem));
+    B_button.whileHeld(new ElevatorDown(elevatorSubsystem));
 
-    Trigger.whileHeld(new ShooterBackFeed(flyWheelSubsystem, conveyorSubsystem));
+    // Trigger.whileHeld(new ShooterBackFeed(flyWheelSubsystem, conveyorSubsystem));
+    Trigger.toggleWhenPressed(new PneumaticIntakeDown(pneumaticIntakeSubsystem));
     Left_Button_Joystick.whileHeld(new ShootLeftTele(flyWheelSubsystem, turretSubsystem));
     Back_Button_Joystick.whileHeld(new ShootCenterTele(flyWheelSubsystem, turretSubsystem));
     Right_Button_Joystick.whileHeld(new ShootRightTele(flyWheelSubsystem, turretSubsystem));
@@ -214,12 +211,9 @@ public class RobotContainer {
     Left_Bottom_Middle_Button.whileHeld(new ConveyorXIn(conveyorSubsystem));
     Left_Top_Left_Button.whileHeld(new IntakeConveyorOut(conveyorSubsystem));
     Left_Bottom_Left_Button.whileHeld(new IntakeConveyorIn(conveyorSubsystem));
+    Right_Top_Left_Button.whileHeld(new ElevatorUp(elevatorSubsystem));
+
     
-    Right_Top_Right_Button.whileHeld(new ShoulderUp(armSubsystem));
-    Right_Bottom_Right_Buttom.whileHeld(new ShoulderDown(armSubsystem));
-    Right_Top_Middle_Button.whileHeld(new ElbowUp(elbowSubsystem));
-    Right_Bottom_Middle_Button.whileHeld(new ElbowDown(elbowSubsystem));
-    Right_Top_Left_Button.whileHeld(new Winch(winchSubsystem));
     
 
 

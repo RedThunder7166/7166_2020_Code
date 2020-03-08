@@ -23,7 +23,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.TurretConstants;
+
 
 
 public class TurretSubsystem extends SubsystemBase {
@@ -37,10 +38,10 @@ public class TurretSubsystem extends SubsystemBase {
 
 
 
-  public TalonSRX turret = new TalonSRX(Constants.TEMP_GEAR_CAN);
-  public AnalogInput RS7_Encoder = new AnalogInput(Constants.TURRET_ENCODER);
+  public TalonSRX turret = new TalonSRX(TurretConstants.TEMP_GEAR_CAN);
+  public AnalogInput RS7_Encoder = new AnalogInput(TurretConstants.TURRET_ENCODER);
   public AnalogEncoder turret_encoder = new AnalogEncoder(RS7_Encoder);
-  public CANSparkMax hoodAdjustMotor = new CANSparkMax(Constants.TEMP_HOOD_CAN, MotorType.kBrushless);
+  public CANSparkMax hoodAdjustMotor = new CANSparkMax(TurretConstants.TEMP_HOOD_CAN, MotorType.kBrushless);
   public CANEncoder hoodEncoder = new CANEncoder(hoodAdjustMotor);
   public DigitalInput limitSwitch = new DigitalInput(0);
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);

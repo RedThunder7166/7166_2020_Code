@@ -5,51 +5,43 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Autononmous.Commands;
+package frc.robot.commands.Climbing;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climb.ArmSubsystem;
+import frc.robot.subsystems.Climb.ElevatorSubsystem;
 
-public class AutoArmUp extends CommandBase {
-  private final ArmSubsystem armSubsystem;
+public class ElevatorUp extends CommandBase {
+    private final ElevatorSubsystem winchSubsystem;
   /**
-   * Creates a new AutoArmUp.
+   * Creates a new ElevatorUp.
    */
-  public AutoArmUp(ArmSubsystem subsystem) {
+  public ElevatorUp(ElevatorSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    armSubsystem = subsystem;
+    winchSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.shoulderReset();
+    winchSubsystem.Brake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    armSubsystem.moveShoulder(0.50);
-    armSubsystem.ShoulderBrake();
-    SmartDashboard.putNumber("Shoulder Encoder Value", armSubsystem.moveWithEncoder());
-
-
+    winchSubsystem.setElevatorSpeed(0.86);
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armSubsystem.moveShoulder(-.10);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return (armSubsystem.moveWithEncoder() >= 550);
     return false;
   }
 }

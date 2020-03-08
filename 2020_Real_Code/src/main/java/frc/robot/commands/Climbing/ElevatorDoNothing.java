@@ -7,40 +7,37 @@
 
 package frc.robot.commands.Climbing;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.subsystems.Climb.ArmSubsystem;
+import frc.robot.subsystems.Climb.ElevatorSubsystem;
 
-public class ShoulderUp extends CommandBase {
-  private final ArmSubsystem armSubsystem;
-
+public class ElevatorDoNothing extends CommandBase {
+  private final ElevatorSubsystem elevatorSubsystem;
   /**
-   * Creates a new Arm.
+   * Creates a new WinchDoNothing.
    */
-  public ShoulderUp(ArmSubsystem subsystem) {
+  public ElevatorDoNothing(ElevatorSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    armSubsystem = subsystem;
+    elevatorSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-    armSubsystem.ShoulderBrake();
+    boolean status = elevatorSubsystem.getSol();
+    elevatorSubsystem.setSol(status);
+    elevatorSubsystem.setElevatorSpeed(0.0);
+    elevatorSubsystem.Brake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.moveShoulder(0.20);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // armSubsystem.moveShoulder(0.0);
   }
 
   // Returns true when the command should end.

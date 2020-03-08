@@ -8,14 +8,8 @@
 package frc.robot.commands.Autononmous.Groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.RobotContainer;
-import frc.robot.commands.Autononmous.Commands.ARMTEST;
-import frc.robot.commands.Autononmous.Commands.AutoArmUp;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.Autononmous.Commands.MoveDistance;
-import frc.robot.commands.Climbing.ShoulderMoveTest;
-import frc.robot.commands.Climbing.ShoulderUp;
-import frc.robot.commands.Shooter.ShootCenter;
-import frc.robot.subsystems.Climb.ArmSubsystem;
 import frc.robot.subsystems.Conveyor.ConveyorSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.subsystems.Shooter.FlyWheelSubsystem;
@@ -28,11 +22,12 @@ public class AutoLine extends SequentialCommandGroup {
   /**
    * Creates a new AutoLine.
    */
-  public AutoLine(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem, ArmSubsystem armSubsystem) {
+  public AutoLine(DriveSubsystem driveSubsystem, TurretSubsystem turretSubsystem, ConveyorSubsystem conveyorSubsystem, FlyWheelSubsystem flywheelSubsystem) {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    // addCommands(
-    addCommands( new MoveDistance(driveSubsystem, .15, 24)
+    addCommands(new MoveDistance(driveSubsystem, 0.4, 12).deadlineWith(new WaitCommand(2))
+    // addCommands( new MoveDistance(driveSubsystem, .15, 24)
+    
     );
     // ShoulderUp(RobotContainer.armSubsystem).withTimeout(1) new ShoulderUp(armSubsystem),
     //new AutoArmUp(armSubsystem), new ShootCenter(turretSubsystem, flywheelSubsystem, conveyorSubsystem, armSubsystem, 3),

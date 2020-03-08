@@ -5,48 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems.Drive;
+package frc.robot.subsystems.Conveyor;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SolConstants;
-import frc.robot.commands.Drive.PneumaticsDoNothing;
 
-public class PneumaticsSubsystem extends SubsystemBase {
+public class PneumaticIntakeSubsystem extends SubsystemBase {
   /**
-   * Creates a new PneumaticsSubsystem.
+   * Creates a new PneumaticIntakeSubsystem.
    */
-  public PneumaticsSubsystem() {
-
+  public PneumaticIntakeSubsystem() {
 
   }
 
-  public Solenoid driveSol = new Solenoid(SolConstants.DRIVE_SOL);
-
-
-  // public void highGear(){
-  //   Sol.set(false);
-  // }
-
-  // public void lowGear(){
-  //   Sol.set(true);
-  // }
+  public Solenoid intakeSol = new Solenoid(SolConstants.INTAKE_SOL);
 
   public void setSol(boolean status){
-    driveSol.set(status);
+    intakeSol.set(status);
   }
-
   public boolean getSol(){
-    return driveSol.get();
-  }
-  // public void doNothing(){
-  //   // do nothing
-  // }
-
-  @Override
-  public void setDefaultCommand(Command defaultCommand) {
-    super.setDefaultCommand(new PneumaticsDoNothing(this));
+    return intakeSol.get();
   }
 
   @Override

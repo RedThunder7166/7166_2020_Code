@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
 public class DriveSubsystem extends SubsystemBase {
   /**
    * Creates a new DriveSubsystem.
@@ -27,10 +28,10 @@ public class DriveSubsystem extends SubsystemBase {
 
   }
 
-  public CANSparkMax frontLeft = new CANSparkMax(Constants.FRONT_LEFT_MOTOR_CAN, MotorType.kBrushless);
-  public CANSparkMax frontRight = new CANSparkMax(Constants.FRONT_RIGHT_MOTOR_CAN, MotorType.kBrushless);
-  public CANSparkMax backLeft = new CANSparkMax(Constants.BACK_LEFT_MOTOR_CAN, MotorType.kBrushless);
-  public CANSparkMax backRight = new CANSparkMax(20, MotorType.kBrushless);
+  public CANSparkMax frontLeft = new CANSparkMax(DriveConstants.FRONT_LEFT_MOTOR_CAN, MotorType.kBrushless);
+  public CANSparkMax frontRight = new CANSparkMax(DriveConstants.FRONT_RIGHT_MOTOR_CAN, MotorType.kBrushless);
+  public CANSparkMax backLeft = new CANSparkMax(DriveConstants.BACK_LEFT_MOTOR_CAN, MotorType.kBrushless);
+  public CANSparkMax backRight = new CANSparkMax(DriveConstants.BACK_RIGHT_MOTOR_CAN, MotorType.kBrushless);
 
 
   // Declaring the motor groups
@@ -104,52 +105,7 @@ public class DriveSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("right Encoder", rightEncoder.getPosition());
   }
 
-  public void TargetAimX(){
-  //   double tx = RobotContainer.limelightsubsystem.getTX();
-  //   double Kp = 0.01f;
-  //   double min_Command = 0.0775f;
 
-  //   if(RobotContainer.limelightsubsystem.getTV()){
-  //     double heading_error = -tx;
-  //     double steering_adjust = 0.0f;
-
-  //     if(tx > 1.0){
-  //       steering_adjust = Kp *heading_error - min_Command;
-
-  //     }else if(tx < 1.0){
-  //       steering_adjust = Kp *heading_error + min_Command;
-
-  //     }    
-  //     System.out.println("Steering:" + steering_adjust);
-  //     RobotContainer.driveSubsystem.setLeft(-steering_adjust);
-  //     RobotContainer.driveSubsystem.setRight(-steering_adjust);
-  //   }
-  }
-
-  // negative speed = right forwards, left backwards
-  public void TargetAimY(){
-  //   double ty = RobotContainer.limelightsubsystem.getTY();
-  //   double Kp = 0.01f;
-  //   double min_Command = 0.0775f;
-
-  //   if(RobotContainer.limelightsubsystem.getTV()){
-  //     double heading_error = -ty;
-  //     double steering_adjust = 0.0f;
-
-  //     if(ty > 1.0){
-  //       // backwards
-  //       steering_adjust = Kp *heading_error - min_Command;
-
-  //     }else if(ty < 1.0){
-  //       // forwards
-  //       steering_adjust =-(Kp *heading_error + min_Command);
-
-  //     }    
-  //     System.out.println("Steering:" + steering_adjust);
-  //     RobotContainer.driveSubsystem.setLeft(-steering_adjust);
-  //     RobotContainer.driveSubsystem.setRight(steering_adjust);
-  //   }
-  }
 
   public CANEncoder leftEncoder = new CANEncoder(frontLeft);
   public CANEncoder rightEncoder = new CANEncoder(frontRight);

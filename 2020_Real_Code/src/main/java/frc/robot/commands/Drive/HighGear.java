@@ -29,7 +29,7 @@ public class HighGear extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumaticsSubsystem.highGear();
+    pneumaticsSubsystem.setSol(false);
   }
 
   // Called once the command ends or is interrupted.

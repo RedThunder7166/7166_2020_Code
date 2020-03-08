@@ -29,7 +29,8 @@ public class PneumaticsDoNothing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumaticsSubsystem.doNothing();
+    boolean status = pneumaticsSubsystem.getSol();
+    pneumaticsSubsystem.setSol(status);
   }
 
   // Called once the command ends or is interrupted.

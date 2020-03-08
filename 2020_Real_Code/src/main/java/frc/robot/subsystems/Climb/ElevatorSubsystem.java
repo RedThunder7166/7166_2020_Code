@@ -11,26 +11,36 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.SolConstants;
 
-public class WinchSubsystem extends SubsystemBase {
+public class ElevatorSubsystem extends SubsystemBase {
   /**
-   * Creates a new WinchSubsystem.
+   * Creates a new ElevatorSubsystem.
    */
-  public WinchSubsystem() {
+  public ElevatorSubsystem() {
 
   }
 
-  public CANSparkMax winch = new CANSparkMax(Constants.WINCH_CAN, MotorType.kBrushless);
+  public CANSparkMax elevator = new CANSparkMax(Constants.ELEVATOR_CAN, MotorType.kBrushless);
+  public Solenoid elevatorSol = new Solenoid(SolConstants.ELEVATOR_SOL);
 
-  public void setWinchSpeed(double speed){
-    winch.set(-speed);
+  public void setElevatorSpeed(double speed){
+    elevator.set(-speed);
   }
 
+  public void setSol(boolean status){
+    elevatorSol.set(status);
+  }
+
+  public boolean getSol(){
+    return elevatorSol.get();
+  }
 
   public void Brake(){
-    winch.setIdleMode(IdleMode.kBrake);
+    elevator.setIdleMode(IdleMode.kBrake);
   }
 
   @Override

@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.ConveyorConstants;
 
 public class ConveyorSubsystem extends SubsystemBase {
   /**
@@ -22,40 +22,33 @@ public class ConveyorSubsystem extends SubsystemBase {
 
   }
 
-  public DigitalInput limitSwitch = new DigitalInput(Constants.CONVEYOR_LIMIT_SWITCH);
-  public VictorSPX topConveyor = new VictorSPX(Constants.CONVEYOR_FRONT_CAN);
+  public DigitalInput limitSwitch = new DigitalInput(ConveyorConstants.CONVEYOR_LIMIT_SWITCH);
+  public VictorSPX topConveyor = new VictorSPX(ConveyorConstants.CONVEYOR_TOP_CAN);
+  public VictorSPX topConveyorTwo = new VictorSPX(ConveyorConstants.CONVEYOR_SECOND_TOP_CAN);
+  public VictorSPX BottomConveyor = new VictorSPX(ConveyorConstants.CONVEYOR_BOTTOM_CAN);
+  public VictorSPX intakeMotor = new VictorSPX(ConveyorConstants.INTAKE_MOTOR_CAN);
 
   public void setVerticalConveyorSpeed(double speed){
-      
       topConveyor.set(ControlMode.PercentOutput, speed);
   }
 
-  public VictorSPX BottomConveyor = new VictorSPX(Constants.CONVEYOR_BOTTOM_CAN);
+  public void setSecondVerticalConveyorSpeed(double speed){
+    topConveyorTwo.set(ControlMode.PercentOutput, speed);
+  }
 
   public void setHorizontalConveyorSpeed(double speed){
     BottomConveyor.setInverted(true);
     BottomConveyor.set(ControlMode.PercentOutput, speed);
   }
 
-  public VictorSPX intakeMotor = new VictorSPX(Constants.INTAKE_MOTOR_CAN);
 
 
   public void setIntakeSpeed(double speed){
     intakeMotor.set(ControlMode.PercentOutput, speed);
   }
 
-  public void fullIntake(double speed){
-    if(speed >= 0.20 || speed <= 0.20){
-      if(limitSwitch.get() == false){
-        setIntakeSpeed(-speed);
-        setHorizontalConveyorSpeed(speed);
-        setVerticalConveyorSpeed(0);
-      }else {
-        setIntakeSpeed(-speed);
-        setHorizontalConveyorSpeed(speed);
-        setVerticalConveyorSpeed(speed);
-      }
-    }
+  public void setIntakingSpeed(double speed){
+    
   }
 
 

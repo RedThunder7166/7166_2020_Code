@@ -17,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.TurretConstants;
 
 public class FlyWheelSubsystem extends SubsystemBase {
   /**
@@ -27,12 +27,9 @@ public class FlyWheelSubsystem extends SubsystemBase {
 
   }
 
-  // public CANSparkMax flyWheelRight = new CANSparkMax(Constants.FLY_WHEEL_RIGHT_CAN, MotorType.kBrushless);
-  public TalonFX flyWheelRight = new TalonFX(Constants.FLY_WHEEL_RIGHT_CAN);
-  public TalonFX flyWheelLeft = new TalonFX(Constants.FLY_WHEEL_LEFT_CAN);
-  // public CANSparkMax flyWheelLeft = new CANSparkMax(Constants.FLY_WHEEL_LEFT_CAN, MotorType.kBrushless);
-  public DigitalInput limitSwitch = new DigitalInput(Constants.BALL_LIMIT_SWITCH);
-  // public Counter counter = new Counter(limitSwitch);
+  public TalonFX flyWheelRight = new TalonFX(TurretConstants.FLY_WHEEL_RIGHT_CAN);
+  public TalonFX flyWheelLeft = new TalonFX(TurretConstants.FLY_WHEEL_LEFT_CAN);
+  public DigitalInput limitSwitch = new DigitalInput(TurretConstants.BALL_LIMIT_SWITCH);
   public int counter = 0;
   
 
@@ -52,13 +49,13 @@ public class FlyWheelSubsystem extends SubsystemBase {
     // flyWheelRight.set(ControlMode.PercentOutput, -0.60);
 
 
-    while(flyWheelLeft.getMotorOutputPercent() < 0.60 && flyWheelRight.getMotorOutputPercent() > -0.60){
+    while(flyWheelLeft.getMotorOutputPercent() < 0.85 && flyWheelRight.getMotorOutputPercent() > -0.85){
       flyspeedRight -= startUp;
       flyspeedLeft += startUp;
 
       flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);
       flyWheelRight.set(ControlMode.PercentOutput, flyspeedRight);
-      if(flyWheelLeft.getMotorOutputPercent() == 0.60 && flyWheelRight.getMotorOutputPercent() == -0.60){
+      if(flyWheelLeft.getMotorOutputPercent() == 0.85 && flyWheelRight.getMotorOutputPercent() == -0.85){
           // flyspeedLeft = 100;
           // flyspeedRight = -100;
           flyWheelLeft.set(ControlMode.PercentOutput, flyspeedLeft);

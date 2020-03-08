@@ -5,33 +5,31 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climbing;
+package frc.robot.commands.Conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climb.WinchSubsystem;
+import frc.robot.subsystems.Conveyor.PneumaticIntakeSubsystem;
 
-public class Winch extends CommandBase {
-    private final WinchSubsystem winchSubsystem;
+public class PneumaticIntakeUp extends CommandBase {
+  private final PneumaticIntakeSubsystem IntakeSubsystem;
   /**
-   * Creates a new Winch.
+   * Creates a new PneumaticIntakeUp.
    */
-  public Winch(WinchSubsystem subsystem) {
+  public PneumaticIntakeUp(PneumaticIntakeSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    winchSubsystem = subsystem;
+    IntakeSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    winchSubsystem.Brake();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    winchSubsystem.setWinchSpeed(0.86);
-
+    IntakeSubsystem.setSol(true);
   }
 
   // Called once the command ends or is interrupted.

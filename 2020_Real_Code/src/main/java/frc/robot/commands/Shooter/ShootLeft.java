@@ -43,7 +43,7 @@ public class ShootLeft extends CommandBase {
     turretSubsystem.ShowData();
     turretSubsystem.AdjustTurretXLeft();
     turretSubsystem.TargetAimY();
-    if(flyWheelSubsystem.leftOutput() == 60 && flyWheelSubsystem.rightOutput() == -60){
+    if(flyWheelSubsystem.leftOutput() == 0.83 && flyWheelSubsystem.rightOutput() == -0.83){
       conveyorSubsystem.setHorizontalConveyorSpeed(0.35);
       conveyorSubsystem.setVerticalConveyorSpeed(0.35);
     }

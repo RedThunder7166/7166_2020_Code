@@ -5,24 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Climbing;
+package frc.robot.commands.Conveyor;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climb.ArmSubsystem;
-import frc.robot.subsystems.Climb.ElbowSubsystem;
+import frc.robot.subsystems.Conveyor.PneumaticIntakeSubsystem;
 
-public class ArmDoNothing extends CommandBase {
-  private final ArmSubsystem armSubsystem;
-  private final ElbowSubsystem elbowSubsystem;
-
+public class PneumaticIntakeNothing extends CommandBase {
+  private final PneumaticIntakeSubsystem IntakeSubsystem;
   /**
-   * Creates a new ArmDoNothing.
+   * Creates a new PneumaticIntakeNothing.
    */
-  public ArmDoNothing(ArmSubsystem subsystem, ElbowSubsystem subsystem2) {
+  public PneumaticIntakeNothing(PneumaticIntakeSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    armSubsystem = subsystem;
-    elbowSubsystem = subsystem2;
-    addRequirements(subsystem, subsystem2);
+    IntakeSubsystem = subsystem;
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -33,21 +29,10 @@ public class ArmDoNothing extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(armSubsystem.getShoulderSwitch() == false){
-      armSubsystem.moveShoulder(0.0);
-    }
-    // if(armSubsystem.getShoulderSwitch() == true){
-    //   armSubsystem.moveShoulder(0.02);
-    // }
-    if(elbowSubsystem.getElbowSwitch() == false){
-      elbowSubsystem.moveElbow(0.0);
-    }
-    if(elbowSubsystem.getElbowSwitch() == true){
-      elbowSubsystem.moveElbow(0.10);
-    }
-    armSubsystem.ShoulderBrake();
-    elbowSubsystem.ElbowBrake();
+
+    boolean status = IntakeSubsystem.getSol();
+    IntakeSubsystem.setSol(status);
+
   }
 
   // Called once the command ends or is interrupted.

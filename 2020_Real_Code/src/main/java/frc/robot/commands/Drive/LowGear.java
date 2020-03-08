@@ -29,7 +29,7 @@ public class LowGear extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumaticsSubsystem.lowGear();
+    pneumaticsSubsystem.setSol(true);
   }
 
   // Called once the command ends or is interrupted.

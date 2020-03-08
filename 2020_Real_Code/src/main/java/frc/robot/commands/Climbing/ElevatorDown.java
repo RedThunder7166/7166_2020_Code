@@ -5,48 +5,41 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.Autononmous.Commands;
+package frc.robot.commands.Climbing;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climb.ArmSubsystem;
+import frc.robot.subsystems.Climb.ElevatorSubsystem;
 
-public class ARMTEST extends CommandBase {
-  private final ArmSubsystem armSubsystem;
-
+public class ElevatorDown extends CommandBase {
+  private final ElevatorSubsystem elevatorSubsystem;
   /**
-   * Creates a new Arm.
+   * Creates a new ElevatorDown.
    */
-  public ARMTEST(ArmSubsystem subsystem) {
+  public ElevatorDown(ElevatorSubsystem subsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    armSubsystem = subsystem;
+    elevatorSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    armSubsystem.shoulderReset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSubsystem.moveWithEncoder();
-    armSubsystem.moveShoulder(0.20);
-    armSubsystem.ShoulderBrake();
-    SmartDashboard.putNumber("Shoulder test encoder val", armSubsystem.moveWithEncoder());
+    elevatorSubsystem.setElevatorSpeed(-0.86);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    armSubsystem.moveShoulder(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-     return armSubsystem.moveWithEncoder() >= 550;
+    return false;
   }
 }
